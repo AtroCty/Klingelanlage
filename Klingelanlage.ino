@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------
 // Sprache	:	Arduino C
 // Datum	:	14. Dezember 2017
-// Updated	:	24.05.2018
+// Updated	:	24. Mai 2018
 // Version	:	1.2
 // Autor	:	Timm Schütte & Till Westphalen
 // Modul	:	Arduino UNO
@@ -14,7 +14,6 @@
 //----------------------------------------------------------------------
 
 #include <Metro.h>							// für exakte Zeiten
-#include <Bounce2.h>						// Schalter-Entprellung
 
 #define OUT_BLINKLED	9					// Blinksignal-LED
 #define OUT_TESTLED		10					// Test-LED
@@ -24,7 +23,7 @@
 #define IN_TILL			6					// Klingel-Relais Till
 #define IN_TOBI			7					// Klingel-Relais Tobi
 #define IN_FRANZ		8					// Klingel-Relais Franz
-#define IN_KLINGEL		3					// Klingelsignal ,MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind
+#define IN_KLINGEL		3					// Klingelsignal, MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind
 
 #define DAUER			2000				// in Millisekunden
 #define SPEED			10					// Geschwindigkeit des Blinkes wenn Taste nicht gedrückt
@@ -36,21 +35,21 @@
 
 volatile byte BLastState = 0;									//	Merker der verschiedenen States
 uint32_t counter = 0;
+uint32_t iEntpreller = 0;
 
 Metro MetroLED		= Metro((long) SPEED);						//	Helligkeitsgeschwindigkeit
 Metro MetroKlingel 	= Metro((long) DAUER);						//	Klingeldauer
-Bounce debouncer 	= Bounce();
 
 //----------------------------------------------------------------------
 // State-Bits:
 //----------------------------------------------------------------------
 // 0	= Startsequenz
 // 1	= Klingel-Routine gestartet
-// 2	= Klingel wurde betätigt
+// 2	= Klingel-Signal empfangen
 // 3	= Wird gerade Tür geöffnet?
 // 4	= Hell/Dunkler
 // 5	= TESTSTATE
-// 6	= UNUSED
+// 6	= Klingel-Signal bestätigt
 // 7	= UNUSED
 //----------------------------------------------------------------------
 //	Arduino Setup-Routine
@@ -70,8 +69,6 @@ void setup()
 	pinMode( IN_TOBI,			INPUT_PULLUP );
 	pinMode( IN_FRANZ,			INPUT_PULLUP );
 	pinMode( IN_KLINGEL,		INPUT_PULLUP );
-	debouncer.attach(IN_KLINGEL);
-	debouncer.interval(5); 				// Interval in ms
 	Serial.begin(115200);				// für serielle Ausgabe, kann deaktiviert bleiben
 }
 
@@ -117,16 +114,45 @@ void loop()
 		digitalWrite( OUT_TRELAIS, HIGH );
 		bitClear( BLastState, 3 );
 	}
+
+	//----------------------------------------------------------------------
+	//	Überprüfung ob ein Fehl-Signal gesendet wurde
+	if (bitRead( BLastState, 1 ))
+	{
+		if (iEntpreller < 50)
+		{
+			iEntpreller++;
+
+			/**
+			 * Falls kein Signal mehr anliegt, setze zurück
+			 */
+			if (!digitalRead(IN_KLINGEL))
+			{
+				iEntpreller = 0;
+				bitClear( BLastState, 1);
+				attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), Klingeln, FALLING);
+			}
+		}
+		else
+		{
+			bitSet( BLastState, 6 );
+			bitClear( BLastState, 1);
+			iEntpreller = 0;
+		}
+
+	}
+
+
 	//----------------------------------------------------------------------
 	//	Wenn Klingel betätigt wurde, und Routine nicht bereits ausgeführt
-	if ( !(bitRead( BLastState, 1 )) && bitRead( BLastState, 2 ) )
+	if ( !(bitRead( BLastState, 6 )) && bitRead( BLastState, 2 ) )
 	{
 		bitSet( BLastState, 1 );
 		MetroLED.reset();
 	}
 	//----------------------------------------------------------------------
 	//	Klingelroutine
-	if (bitRead( BLastState, 1 ))
+	if (bitRead( BLastState, 6 ))
 	{
 		// Blink-Routinne, wenn Oeffnerroutine nicht aktiv ist
 		LichtRoutine(1);
@@ -145,7 +171,7 @@ void loop()
 		//Abschluss der Klingelroutine
 		if (counter >= (int) DAUER)
 		{
-			bitClear( BLastState, 1);
+			bitClear( BLastState, 6);
 			bitClear( BLastState, 2);
 			bitClear( BLastState, 5);
 			counter = 0;
