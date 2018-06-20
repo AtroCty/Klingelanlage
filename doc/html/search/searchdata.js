@@ -1,21 +1,30 @@
 var indexSectionsWithContent =
 {
-  0: "bhils",
-  1: "hs",
-  2: "bils"
+  0: "bdilops",
+  1: "s",
+  2: "bils",
+  3: "b",
+  4: "dios",
+  5: "p"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "files",
-  2: "functions"
+  2: "functions",
+  3: "variables",
+  4: "defines",
+  5: "pages"
 };
 
 var indexSectionLabels =
 {
-  0: "All",
-  1: "Files",
-  2: "Functions"
+  0: "Alle",
+  1: "Dateien",
+  2: "Funktionen",
+  3: "Variablen",
+  4: "Makrodefinitionen",
+  5: "Seiten"
 };
 

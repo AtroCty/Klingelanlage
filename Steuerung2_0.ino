@@ -1,66 +1,50 @@
-/** @file Steuerung2_0.ino*/
-/** ----------------------------------------------------------------------
- * @par Project:	Klingelanlage
- *     ----------------------------------------------------------------------
- * @brief      Steuerung der Klingelanlage mit mehreren Eingängen Zusätzliche
+/**
+ * ----------------------------------------------------------------------
+ * @file Steuerung2_0.ino
+ * @mainpage ProjeKt Klingelanlage
+ *     ------------------------------------------------------------------
+ * @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
  *             Ausgabe an verschiedenen Blinkanlagen
  * @details    This class is used to demonstrate a number of section commands.
  * @author     Timm Schütte
  * @author     Till Westphalen
  * @version    2.0.1
- * @date       14. Dezember 2017
+ * @date       14. Dezember 2017 - Entwurf
+ * @date       20. Juni 2018 - Update
  * @copyright  GNU Public License.
  */
 
-#include <Metro.h>						// für Zeiten ohne Timer
+#include <Metro.h>						/*!< für Zeiten ohne Timer  */
 #include <Arduino.h>
 
-/** Blinksignal-LED */
-#define OUT_BLINKLED	9
-/** Blinksignal-LED */
-#define OUT_TESTLED		10				// Test-LED
-/** Blinksignal-LED */
-#define OUT_TRELAIS		5				// Relais für den Türsummer
-/** Blinksignal-LED */
-#define IN_TIMM			2				// Klingel-Relais Timm
-/** Blinksignal-LED */
-#define IN_BOBBY		4				// Klingel-Relais Bobby
-/** Blinksignal-LED */
-#define IN_TILL			6				// Klingel-Relais Till
-/** Blinksignal-LED */
-#define IN_TOBI			7				// Klingel-Relais Tobi
-/** Blinksignal-LED */
-#define IN_FRANZ		8				// Klingel-Relais Franz
-/** Blinksignal-LED */
-#define IN_KLINGEL		3				// Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind
+#define OUT_BLINKLED	9				/*!< Blinksignal-LED */
+#define OUT_TESTLED		10				/*!< Test-LED */
+#define OUT_TRELAIS		5				/*!< Relais für den Türsummer */
+#define IN_TIMM			2				/*!< Klingel-Relais Timm */
+#define IN_BOBBY		4				/*!< Klingel-Relais Bobby */
+#define IN_TILL			6				/*!< Klingel-Relais Till */
+#define IN_TOBI			7				/*!< Klingel-Relais Tobi */
+#define IN_FRANZ		8				/*!< Klingel-Relais Franz */
+#define IN_KLINGEL		3				/*!< Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind */
 
-/** Blinksignal-LED */
-#define DAUER			10000.0			// in Milli-Sekunden
-/** Blinksignal-LED */
-#define SPEED			1.0				// Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer)
-/** Blinksignal-LED */
-#define SLOWRATE		0.1				// Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt
+#define DAUER			10000.0			/*!< in Milli-Sekunden */
+#define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
+#define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 
 //----------------------------------------------------------------------
 //	GLOBALS & KONSTANTEN
 //----------------------------------------------------------------------
 /** Blinksignal-LED */
-volatile unsigned byte BLastState = 0;								//	Merker der verschiedenen States
+volatile unsigned byte BLastState = 0;	/*!<	Merker der verschiedenen States */
 
 //----------------------------------------------------------------------
 // State-Bits:
 //----------------------------------------------------------------------
-/** Blinksignal-LED */
 #define STATE_START				1
-/** Blinksignal-LED */
 #define STATE_KLINGEL_ROUTINE	2
-/** Blinksignal-LED */
 #define STATE_KLINGEL_PUSHED	4
-/** Blinksignal-LED */
 #define STATE_DOOR_OPEN			8
-/** Blinksignal-LED */
 #define STATE_DENSITY_TOGGLE	16
-/** Blinksignal-LED */
 #define STATE_DEBUG				32
 
 // 1	=	STATE_START				=	Startsequenz
@@ -89,7 +73,7 @@ void setup()
 	pinMode( IN_TOBI,		INPUT_PULLUP );
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
-	Serial.begin(115200);				//	für serielle Ausgabe zum debuggen, kann deaktiviert bleiben
+	Serial.begin(115200);				/*!<	für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
 }
 
 //----------------------------------------------------------------------
@@ -101,8 +85,8 @@ void setup()
  */
 void loop()
 {
-	//----------------------------------------------------------------------
-	// #0 Start-Routine, wird nur einmal ausgeführt.
+	//-----------------------------------------------------------------------------
+ 	// #0 Start-Routine, wird nur einmal ausgeführt.
 	if ( !bGetState( STATE_START ))
 	{
 		StartRoutine();
@@ -130,7 +114,7 @@ void loop()
 
 /**
  * @brief      Anfangsroutine bei Start des Programmes
- */
+ */ 
 void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
@@ -186,7 +170,7 @@ void interuptKlingeln()
  * @brief      { function_description }
  *
  * @param[in]  fFaktor  The f faktor
- */
+ 
 void LightControl(float fFaktor)
 {
 }

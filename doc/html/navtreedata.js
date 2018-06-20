@@ -24,11 +24,13 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Haussteuerung", "index.html", [
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "Globals", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
+    [ "Dateien", "files.html", [
+      [ "Auflistung der Dateien", "files.html", "files_dup" ],
+      [ "Globale Elemente", "globals.html", [
+        [ "Alle", "globals.html", null ],
+        [ "Funktionen", "globals_func.html", null ],
+        [ "Variablen", "globals_vars.html", null ],
+        [ "Makrodefinitionen", "globals_defs.html", null ]
       ] ]
     ] ]
   ] ]
@@ -36,8 +38,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_haussteuerung_8ino.html"
+"_steuerung2__0_8ino.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'Klicken um Panelsynchronisation auszuschalten';
+var SYNCOFFMSG = 'Klicken um Panelsynchronisation einzuschalten';

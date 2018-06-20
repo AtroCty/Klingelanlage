@@ -20,10 +20,9 @@ var _steuerung2__0_8ino =
     [ "STATE_START", "_steuerung2__0_8ino.html#addcbd0eec71cda69580487f74a2c24c4", null ],
     [ "bButtonPushed", "_steuerung2__0_8ino.html#a0e1ed9b98554178dc26aeee1a81988c1", null ],
     [ "bGetState", "_steuerung2__0_8ino.html#a14e71d3f74a1fab9ffc72030b1671d75", null ],
-    [ "bSetState", "_steuerung2__0_8ino.html#a631fe6461ca97a352ae203e3cc9d28d3", null ],
     [ "interuptKlingeln", "_steuerung2__0_8ino.html#a43b79f08ba6844ea36e56a4d8ce1a678", null ],
-    [ "LightControl", "_steuerung2__0_8ino.html#abd624ba48dd16a863dec2b149316c1ea", null ],
     [ "loop", "_steuerung2__0_8ino.html#afe461d27b9c48d5921c00d521181f12f", null ],
+    [ "SetState", "_steuerung2__0_8ino.html#a9557fe1c1c579e2cd5a8f99a786a8ed6", null ],
     [ "setup", "_steuerung2__0_8ino.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
     [ "StartRoutine", "_steuerung2__0_8ino.html#a943cc12e9c135d390d4c6853fe3296f9", null ],
     [ "BLastState", "_steuerung2__0_8ino.html#acfebca18fafc457c1f0545605d9bcb8b", null ]
