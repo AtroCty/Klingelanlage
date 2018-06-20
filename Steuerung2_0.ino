@@ -1,50 +1,66 @@
-/** @file Steuerung2_0.ino */
-//----------------------------------------------------------------------
-// @par Project:	Klingelanlage
-//----------------------------------------------------------------------
-// @brief		:	- Steuerung der Klingelanlage mit mehreren Eingängen
-//					- Zusätzliche Ausgabe an verschiedenen Blinkanlagen
-//----------------------------------------------------------------------
-// @par Sprache		:	Arduino C
-// @par Datum		:	14. Dezember 2017
-// @par Updated		:	06. Juni 2018
-// @par Version		:	2.0
-// @par Autor		:	Timm Schütte & Till
-// @par Modul		:	Arduino UNO
-// @par Frequenz	:	16 Mhz
-//----------------------------------------------------------------------
+/** @file Steuerung2_0.ino*/
+/** ----------------------------------------------------------------------
+ * @par Project:	Klingelanlage
+ *     ----------------------------------------------------------------------
+ * @brief      Steuerung der Klingelanlage mit mehreren Eingängen Zusätzliche
+ *             Ausgabe an verschiedenen Blinkanlagen
+ * @details    This class is used to demonstrate a number of section commands.
+ * @author     Timm Schütte
+ * @author     Till Westphalen
+ * @version    2.0.1
+ * @date       14. Dezember 2017
+ * @copyright  GNU Public License.
+ */
 
 #include <Metro.h>						// für Zeiten ohne Timer
 #include <Arduino.h>
 
-#define OUT_BLINKLED	9				// Blinksignal-LED
+/** Blinksignal-LED */
+#define OUT_BLINKLED	9
+/** Blinksignal-LED */
 #define OUT_TESTLED		10				// Test-LED
+/** Blinksignal-LED */
 #define OUT_TRELAIS		5				// Relais für den Türsummer
+/** Blinksignal-LED */
 #define IN_TIMM			2				// Klingel-Relais Timm
+/** Blinksignal-LED */
 #define IN_BOBBY		4				// Klingel-Relais Bobby
+/** Blinksignal-LED */
 #define IN_TILL			6				// Klingel-Relais Till
+/** Blinksignal-LED */
 #define IN_TOBI			7				// Klingel-Relais Tobi
+/** Blinksignal-LED */
 #define IN_FRANZ		8				// Klingel-Relais Franz
+/** Blinksignal-LED */
 #define IN_KLINGEL		3				// Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind
 
+/** Blinksignal-LED */
 #define DAUER			10000.0			// in Milli-Sekunden
+/** Blinksignal-LED */
 #define SPEED			1.0				// Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer)
+/** Blinksignal-LED */
 #define SLOWRATE		0.1				// Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt
 
 //----------------------------------------------------------------------
 //	GLOBALS & KONSTANTEN
 //----------------------------------------------------------------------
-
+/** Blinksignal-LED */
 volatile unsigned byte BLastState = 0;								//	Merker der verschiedenen States
 
 //----------------------------------------------------------------------
 // State-Bits:
 //----------------------------------------------------------------------
+/** Blinksignal-LED */
 #define STATE_START				1
+/** Blinksignal-LED */
 #define STATE_KLINGEL_ROUTINE	2
+/** Blinksignal-LED */
 #define STATE_KLINGEL_PUSHED	4
+/** Blinksignal-LED */
 #define STATE_DOOR_OPEN			8
+/** Blinksignal-LED */
 #define STATE_DENSITY_TOGGLE	16
+/** Blinksignal-LED */
 #define STATE_DEBUG				32
 
 // 1	=	STATE_START				=	Startsequenz
