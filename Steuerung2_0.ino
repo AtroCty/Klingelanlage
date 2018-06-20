@@ -25,8 +25,6 @@
 #define IN_TOBI			7				/*!< Klingel-Relais Tobi */
 #define IN_FRANZ		8				/*!< Klingel-Relais Franz */
 #define IN_KLINGEL		3				/*!< Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind */
-
-//------------------------------------------------------------------------------
 /// @}
 
 #define LEUCHTDAUER		10000.0			/*!< in Milli-Sekunden */
@@ -45,17 +43,16 @@
 #define STATE_DEBUG				32		/*!< TESTSTATE */
 
 //------------------------------------------------------------------------------
-/// @}
-
-//------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States
 volatile unsigned byte BLastState = 0;
+/// @brief      Timer
+volatile unsigned long timer0_millis = 0
 
 //------------------------------------------------------------------------------
 /// Arduino Setup-Routine
 /// @brief      Setzen der PINS & Serieller Debugger
 ///
-void setup()
+                                       void setup()
 {
 	pinMode( OUT_BLINKLED,	OUTPUT );
 	pinMode( OUT_TESTLED,	OUTPUT );
@@ -100,7 +97,6 @@ void loop()
 	}
 	//----------------------------------------------------------------------
 	// #2 Entpreller-Routine
-
 }
 
 //------------------------------------------------------------------------------
