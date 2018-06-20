@@ -29,4 +29,5 @@ var menudata={children:[
 {text:"Globale Elemente",url:"globals.html",children:[
 {text:"Alle",url:"globals.html"},
 {text:"Funktionen",url:"globals_func.html"},
+{text:"Variablen",url:"globals_vars.html"},
 {text:"Makrodefinitionen",url:"globals_defs.html"}]}]}]}

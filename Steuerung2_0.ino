@@ -1,4 +1,4 @@
-///=============================================================================
+//------------------------------------------------------------------------------
 /// @file Steuerung2_0.ino
 /// @mainpage ProjeKt Klingelanlage
 /// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
@@ -9,7 +9,6 @@
 /// @date       14. Dezember 2017 - Entwurf
 /// @date       20. Juni 2018 - Update
 /// @copyright  GNU Public License.
-///             =============================================================================
 
 #include <Metro.h>						/*!< für Zeiten ohne Timer */
 #include <Arduino.h>
@@ -28,12 +27,11 @@
 #define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
 #define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 
-/// ============================================================================
-/// @defgroup   STATES State-Bits                                              
-/// @{                                                                         
-///                                                                            
-/// Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz  
-/// ============================================================================
+//------------------------------------------------------------------------------
+/// @defgroup   STATES State-Bits
+/// @{
+///
+/// Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz
 
 #define STATE_START				1		/*!< Startsequenz */
 #define STATE_KLINGEL_ROUTINE	2		/*!< Klingel-Routine gestartet */
@@ -42,17 +40,17 @@
 #define STATE_DENSITY_TOGGLE	16		/*!< Hell/Dunkler werden des Lichtes */
 #define STATE_DEBUG				32		/*!< TESTSTATE */
 
-/// ===========================================================================
+//------------------------------------------------------------------------------
 /// @}
-/// GLOBALS
-/// ===========================================================================
-=
-volatile unsigned byte BLastState = 0;	/*!< Merker der verschiedenen States */
 
-///=============================================================================
+//------------------------------------------------------------------------------
+/// @brief      Merker der verschiedenen States
+volatile unsigned byte BLastState = 0;
+
+//------------------------------------------------------------------------------
 /// Arduino Setup-Routine
 /// @brief      Setzen der PINS & Serieller Debugger
-///=============================================================================
+///
 void setup()
 {
 	pinMode( OUT_BLINKLED,	OUTPUT );
@@ -64,17 +62,17 @@ void setup()
 	pinMode( IN_TOBI,		INPUT_PULLUP );
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
-	Serial.begin(115200);				/*!<	für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
+	Serial.begin(115200);				/*!< für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
 }
 
 
-/// ============================================================================
+//------------------------------------------------------------------------------
 /// @brief      Main-Loop
-/// ============================================================================
+///
 void loop()
 {
 	//-----------------------------------------------------------------------------
- 	// #0 Start-Routine, wird nur einmal ausgeführt.
+	// #0 Start-Routine, wird nur einmal ausgeführt.
 	if ( !bGetState( STATE_START ))
 	{
 		StartRoutine();
@@ -97,12 +95,12 @@ void loop()
 		bSetState(STATE_KLINGEL_PUSHED, false);
 	}
 	//----------------------------------------------------------------------
-	// #2 
+	// #2
 }
 
-///=============================================================================
+//------------------------------------------------------------------------------
 /// @brief      Anfangsroutine bei Start des Programmes
-///============================================================================= 
+///
 void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
@@ -111,24 +109,24 @@ void StartRoutine()
 	bSetState( STATE_START, true )
 }
 
-///=============================================================================
+//------------------------------------------------------------------------------
 /// @brief      Untersucht den aktuellen State auf gültigkeit
 ///
 /// @param[in]  iPos  Position des States. Siehe dazu Konstanten.
 ///
 /// @return     TRUE falls aktiv, ansonsten FALSE
-///=============================================================================
+///
 bool bGetState( int iPos )
 {
 	return bitRead;
 }
 
-///=============================================================================
+//------------------------------------------------------------------------------
 /// @brief      Setzt den State nach belieben
 ///
-/// @param[in]  iPos    Position des States. Siehe dazu Konstanten.
-/// @param[in]  bState  Gewuenschter State
-///=============================================================================
+/// @param[in]  iPos    Position des States. Siehe dazu Konstanten
+/// @param[in]  bState  Gewünschter State
+///
 void SetState( int iPos, bool bState )
 {
 	if (bState)
@@ -142,10 +140,10 @@ void SetState( int iPos, bool bState )
 	return;
 }
 
-///=============================================================================
+//------------------------------------------------------------------------------
 /// @brief      Wenn Klingel betätigt wurde, setze die States, und unterbreche
 ///             den Interrupt
-///=============================================================================
+///
 void interuptKlingeln()
 {
 	bSetState( STATE_KLINGEL_PUSHED, true );
@@ -155,22 +153,21 @@ void interuptKlingeln()
 	//###
 }
 
-
-///=============================================================================
-/// @brief      Funktion zum regeln des Lichtes
+//------------------------------------------------------------------------------
+/// @brief      Funktion zum Regeln des Lichtes
 ///
 /// @param[in]  fFaktor  Der Faktor
-///=============================================================================
+///
 void LightControl(float fFaktor)
 {
 	return;
 }
 
-///=============================================================================
-/// @brief      Wird gerade ein oeffner betätigt?
+//------------------------------------------------------------------------------
+/// @brief      Wird gerade ein Öffner betätigt?
 ///
 /// @return     TRUE falls ja, ansosnten FALSE
-///=============================================================================
+///
 bool bButtonPushed()
 {
 	return !( digitalRead(IN_TIMM) && digitalRead(IN_BOBBY) && digitalRead(IN_TILL) && digitalRead(IN_TOBI) && digitalRead(IN_FRANZ) );

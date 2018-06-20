@@ -3,9 +3,10 @@ var indexSectionsWithContent =
   0: "bdilops",
   1: "s",
   2: "bils",
-  3: "dios",
-  4: "s",
-  5: "p"
+  3: "b",
+  4: "dios",
+  5: "s",
+  6: "p"
 };
 
 var indexSectionNames =
@@ -13,9 +14,10 @@ var indexSectionNames =
   0: "all",
   1: "files",
   2: "functions",
-  3: "defines",
-  4: "groups",
-  5: "pages"
+  3: "variables",
+  4: "defines",
+  5: "groups",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -23,8 +25,9 @@ var indexSectionLabels =
   0: "Alle",
   1: "Dateien",
   2: "Funktionen",
-  3: "Makrodefinitionen",
-  4: "Gruppen",
-  5: "Seiten"
+  3: "Variablen",
+  4: "Makrodefinitionen",
+  5: "Gruppen",
+  6: "Seiten"
 };
 
