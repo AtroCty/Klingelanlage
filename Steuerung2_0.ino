@@ -33,9 +33,9 @@
 /**
  * @defgroup   STATES State-Bits
  * @{
+ *
+ * Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz
  */
-
-/** Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz */
 
 #define STATE_START				1
 #define STATE_KLINGEL_ROUTINE	2
@@ -162,9 +162,11 @@ void SetState( int iPos, bool bState )
 	return;
 }
 
-/**
- * @brief      Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt
- */
+//-----------------------------------------------------------------------------
+//@brief      Wenn Klingel betätigt wurde, setze die States, und unterbreche
+//            den Interrupt
+//-----------------------------------------------------------------------------
+
 void interuptKlingeln()
 {
 	bSetState( STATE_KLINGEL_PUSHED, true );
@@ -174,11 +176,6 @@ void interuptKlingeln()
 	//###
 }
 
-/**
- * @brief      { function_description }
- *
- * @param[in]  fFaktor  The f faktor
- 
 void LightControl(float fFaktor)
 {
 }
