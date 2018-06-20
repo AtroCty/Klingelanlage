@@ -12,6 +12,12 @@
 
 #include <Metro.h>						/*!< für Zeiten ohne Timer */
 
+typedef struct
+{
+	volatile unsigned long Leuchtdauer;
+	volatile unsigned long Entpreller;
+} structTimer;
+
 //------------------------------------------------------------------------------
 /// @defgroup   PINS Pin-Belegung
 /// @{
@@ -52,6 +58,7 @@
 volatile unsigned byte BLastState = 0;
 /// @brief      Timer des Programmes
 volatile unsigned long lElapsedTime = 0;
+/// @brief      Timer des Programmes
 
 //------------------------------------------------------------------------------
 /// Arduino Setup-Routine
@@ -185,7 +192,10 @@ void UpdateTime()
 {
 	if ( millis() < lElapsedTime )
 	{
-
+		lElapsedTime = millis();
+	}
+	else
+	{
 	}
 	return;
 }
