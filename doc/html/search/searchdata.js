@@ -5,7 +5,8 @@ var indexSectionsWithContent =
   2: "bils",
   3: "b",
   4: "dios",
-  5: "p"
+  5: "s",
+  6: "p"
 };
 
 var indexSectionNames =
@@ -15,7 +16,8 @@ var indexSectionNames =
   2: "functions",
   3: "variables",
   4: "defines",
-  5: "pages"
+  5: "groups",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -25,6 +27,7 @@ var indexSectionLabels =
   2: "Funktionen",
   3: "Variablen",
   4: "Makrodefinitionen",
-  5: "Seiten"
+  5: "Gruppen",
+  6: "Seiten"
 };
 

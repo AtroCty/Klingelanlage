@@ -5,7 +5,6 @@
  *     ------------------------------------------------------------------
  * @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
  *             Ausgabe an verschiedenen Blinkanlagen
- * @details    This class is used to demonstrate a number of section commands.
  * @author     Timm Schütte
  * @author     Till Westphalen
  * @version    2.0.1
@@ -31,21 +30,23 @@
 #define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
 #define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 
-//----------------------------------------------------------------------
-//	GLOBALS & KONSTANTEN
-//----------------------------------------------------------------------
-/** Blinksignal-LED */
-volatile unsigned byte BLastState = 0;	/*!<	Merker der verschiedenen States */
+/**
+ * @defgroup   STATES State-Bits
+ * @{
+ */
 
-//----------------------------------------------------------------------
-// State-Bits:
-//----------------------------------------------------------------------
+/** Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz */
+
 #define STATE_START				1
 #define STATE_KLINGEL_ROUTINE	2
 #define STATE_KLINGEL_PUSHED	4
 #define STATE_DOOR_OPEN			8
 #define STATE_DENSITY_TOGGLE	16
 #define STATE_DEBUG				32
+
+/**
+ * @}
+ */
 
 // 1	=	STATE_START				=	Startsequenz
 // 2	=	STATE_KLINGEL_ROUTINE	=	Klingel-Routine gestartet
@@ -55,6 +56,13 @@ volatile unsigned byte BLastState = 0;	/*!<	Merker der verschiedenen States */
 // 32	=	STATE_DEBUG				=	TESTSTATE
 // 64	=	STATE_DEBUG				=	UNUSED
 // 128	=	STATE_DEBUG				=	UNUSED
+
+//----------------------------------------------------------------------
+//	GLOBALS
+//----------------------------------------------------------------------
+/** Blinksignal-LED */
+volatile unsigned byte BLastState = 0;	/*!<	Merker der verschiedenen States */
+
 //----------------------------------------------------------------------
 //	Arduino Setup-Routine
 //----------------------------------------------------------------------

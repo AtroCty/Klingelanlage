@@ -23,6 +23,7 @@ for the JavaScript code in this file
 */
 var menudata={children:[
 {text:"Hauptseite",url:"index.html"},
+{text:"Module",url:"modules.html"},
 {text:"Dateien",url:"files.html",children:[
 {text:"Auflistung der Dateien",url:"files.html"},
 {text:"Globale Elemente",url:"globals.html",children:[
