@@ -11,8 +11,11 @@
 /// @copyright  GNU Public License.
 
 #include <Metro.h>						/*!< für Zeiten ohne Timer */
-#include <Arduino.h>
 
+//------------------------------------------------------------------------------
+/// @defgroup   PINS Pin-Belegung
+/// @{
+///
 #define OUT_BLINKLED	9				/*!< Blinksignal-LED */
 #define OUT_TESTLED		10				/*!< Test-LED */
 #define OUT_TRELAIS		5				/*!< Relais für den Türsummer */
@@ -23,7 +26,10 @@
 #define IN_FRANZ		8				/*!< Klingel-Relais Franz */
 #define IN_KLINGEL		3				/*!< Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind */
 
-#define DAUER			10000.0			/*!< in Milli-Sekunden */
+//------------------------------------------------------------------------------
+/// @}
+
+#define LEUCHTDAUER		10000.0			/*!< in Milli-Sekunden */
 #define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
 #define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 
@@ -31,8 +37,6 @@
 /// @defgroup   STATES State-Bits
 /// @{
 ///
-/// Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz
-
 #define STATE_START				1		/*!< Startsequenz */
 #define STATE_KLINGEL_ROUTINE	2		/*!< Klingel-Routine gestartet */
 #define STATE_KLINGEL_PUSHED	4		/*!< Klingel wurde betätigt */
@@ -95,7 +99,8 @@ void loop()
 		bSetState(STATE_KLINGEL_PUSHED, false);
 	}
 	//----------------------------------------------------------------------
-	// #2
+	// #2 Entpreller-Routine
+
 }
 
 //------------------------------------------------------------------------------
@@ -106,7 +111,7 @@ void StartRoutine()
 	digitalWrite( OUT_TRELAIS, HIGH );
 	// Aktivieren des Interrupts
 	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), interuptKlingeln, FALLING);
-	bSetState( STATE_START, true )
+	SetState( STATE_START, true )
 }
 
 //------------------------------------------------------------------------------

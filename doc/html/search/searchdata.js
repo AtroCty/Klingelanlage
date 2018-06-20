@@ -4,8 +4,8 @@ var indexSectionsWithContent =
   1: "s",
   2: "bils",
   3: "b",
-  4: "dios",
-  5: "s",
+  4: "ds",
+  5: "ps",
   6: "p"
 };
 

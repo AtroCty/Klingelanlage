@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['state_2dbits',['State-Bits',['../group___s_t_a_t_e_s.html',1,'']]]
+  ['pin_2dbelegung',['Pin-Belegung',['../group___p_i_n_s.html',1,'']]]
 ];
