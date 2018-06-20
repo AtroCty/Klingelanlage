@@ -69,7 +69,7 @@ void setup()
 	pinMode( IN_TOBI,			INPUT_PULLUP );
 	pinMode( IN_FRANZ,			INPUT_PULLUP );
 	pinMode( IN_KLINGEL,		INPUT_PULLUP );
-	Serial.begin(115200);				// für serielle Ausgabe, kann deaktiviert bleiben
+	Serial.begin(115200);					// für serielle Ausgabe, kann deaktiviert bleiben
 }
 
 //----------------------------------------------------------------------
