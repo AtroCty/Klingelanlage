@@ -27,9 +27,14 @@
 #define IN_KLINGEL		3				/*!< Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind */
 /// @}
 
+//------------------------------------------------------------------------------
+/// @defgroup   SPEED Geschwindigkeiten
+/// @{
+///
 #define LEUCHTDAUER		10000.0			/*!< in Milli-Sekunden */
 #define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
 #define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
+/// @}
 
 //------------------------------------------------------------------------------
 /// @defgroup   STATES State-Bits
@@ -45,14 +50,14 @@
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States
 volatile unsigned byte BLastState = 0;
-/// @brief      Timer
-volatile unsigned long timer0_millis = 0
+/// @brief      Timer des Programmes
+volatile unsigned long lElapsedTime = 0;
 
 //------------------------------------------------------------------------------
 /// Arduino Setup-Routine
 /// @brief      Setzen der PINS & Serieller Debugger
 ///
-                                       void setup()
+void setup()
 {
 	pinMode( OUT_BLINKLED,	OUTPUT );
 	pinMode( OUT_TESTLED,	OUTPUT );
@@ -65,7 +70,6 @@ volatile unsigned long timer0_millis = 0
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
 	Serial.begin(115200);				/*!< für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
 }
-
 
 //------------------------------------------------------------------------------
 /// @brief      Main-Loop
@@ -100,12 +104,12 @@ void loop()
 }
 
 //------------------------------------------------------------------------------
-/// @brief      Anfangsroutine bei Start des Programmes
+/// @brief      Anfangsroutine bei Start des Programmes Startet den Interrrupt
+///             und deaktiviert das Relais.
 ///
 void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
-	// Aktivieren des Interrupts
 	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), interuptKlingeln, FALLING);
 	SetState( STATE_START, true )
 }
@@ -157,7 +161,7 @@ void interuptKlingeln()
 //------------------------------------------------------------------------------
 /// @brief      Funktion zum Regeln des Lichtes
 ///
-/// @param[in]  fFaktor  Der Faktor
+/// @param[in]  fFaktor  Geschwindigkeit des Blinkens
 ///
 void LightControl(float fFaktor)
 {
@@ -172,4 +176,16 @@ void LightControl(float fFaktor)
 bool bButtonPushed()
 {
 	return !( digitalRead(IN_TIMM) && digitalRead(IN_BOBBY) && digitalRead(IN_TILL) && digitalRead(IN_TOBI) && digitalRead(IN_FRANZ) );
+}
+
+//------------------------------------------------------------------------------
+/// @brief      Aktualisiert die vergangene Zeit, und resettet bei Überlauf
+///
+void UpdateTime()
+{
+	if ( millis() < lElapsedTime )
+	{
+
+	}
+	return;
 }
