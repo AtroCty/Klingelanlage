@@ -5,13 +5,13 @@
 // @brief		:	- Steuerung der Klingelanlage mit mehreren Eingängen
 //					- Zusätzliche Ausgabe an verschiedenen Blinkanlagen
 //----------------------------------------------------------------------
-// Sprache		:	Arduino C
-// Datum		:	14. Dezember 2017
-// Updated		:	06. Juni 2018
-// Version		:	2.0
-// Autor		:	Timm Schütte & Till
-// Modul		:	Arduino UNO
-// Frequenz		:	16 Mhz
+// @par Sprache		:	Arduino C
+// @par Datum		:	14. Dezember 2017
+// @par Updated		:	06. Juni 2018
+// @par Version		:	2.0
+// @par Autor		:	Timm Schütte & Till
+// @par Modul		:	Arduino UNO
+// @par Frequenz	:	16 Mhz
 //----------------------------------------------------------------------
 
 #include <Metro.h>						// für Zeiten ohne Timer
