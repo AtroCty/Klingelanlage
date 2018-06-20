@@ -1,19 +1,17 @@
-/**
- * ----------------------------------------------------------------------
- * @file Steuerung2_0.ino
- * @mainpage ProjeKt Klingelanlage
- *     ------------------------------------------------------------------
- * @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
- *             Ausgabe an verschiedenen Blinkanlagen
- * @author     Timm Schütte
- * @author     Till Westphalen
- * @version    2.0.1
- * @date       14. Dezember 2017 - Entwurf
- * @date       20. Juni 2018 - Update
- * @copyright  GNU Public License.
- */
+/// ============================================================================
+/// @file Steuerung2_0.ino                                                     |
+/// @mainpage ProjeKt Klingelanlage                                            |
+/// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche|
+///             Ausgabe an verschiedenen Blinkanlagen                          |
+/// @author     Timm Schütte                                                   |
+/// @author     Till Westphalen                                                |
+/// @version    2.0.1                                                          |
+/// @date       14. Dezember 2017 - Entwurf                                    |
+/// @date       20. Juni 2018 - Update                                         |
+/// @copyright  GNU Public License.                                            |
+///=============================================================================
 
-#include <Metro.h>						/*!< für Zeiten ohne Timer  */
+#include <Metro.h>						/*!< für Zeiten ohne Timer */
 #include <Arduino.h>
 
 #define OUT_BLINKLED	9				/*!< Blinksignal-LED */
@@ -30,46 +28,31 @@
 #define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
 #define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 
-/**
- * @defgroup   STATES State-Bits
- * @{
- *
- * Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz
- */
+/// ============================================================================
+/// @defgroup   STATES State-Bits                                              |
+/// @{                                                                         |
+///                                                                            |
+/// Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz        |
+/// ============================================================================
 
-#define STATE_START				1
-#define STATE_KLINGEL_ROUTINE	2
-#define STATE_KLINGEL_PUSHED	4
-#define STATE_DOOR_OPEN			8
-#define STATE_DENSITY_TOGGLE	16
-#define STATE_DEBUG				32
+#define STATE_START				1		/*!< Startsequenz */
+#define STATE_KLINGEL_ROUTINE	2		/*!< Klingel-Routine gestartet */
+#define STATE_KLINGEL_PUSHED	4		/*!< Klingel wurde betätigt */
+#define STATE_DOOR_OPEN			8		/*!< Wird gerade Tür geöffnet? */
+#define STATE_DENSITY_TOGGLE	16		/*!< Hell/Dunkler werden des Lichtes */
+#define STATE_DEBUG				32		/*!< TESTSTATE */
 
-/**
- * @}
- */
+/// ===========================================================================
+/// @}
+/// GLOBALS
+/// ===========================================================================
+=
+volatile unsigned byte BLastState = 0;	/*!< Merker der verschiedenen States */
 
-// 1	=	STATE_START				=	Startsequenz
-// 2	=	STATE_KLINGEL_ROUTINE	=	Klingel-Routine gestartet
-// 4	=	STATE_KLINGEL_PUSHED	=	Klingel wurde betätigt
-// 8	=	STATE_DOOR_OPEN			=	Wird gerade Tür geöffnet?
-// 16	=	STATE_DENSITY_TOGGLE	=	Hell/Dunkler werden des Lichtes
-// 32	=	STATE_DEBUG				=	TESTSTATE
-// 64	=	STATE_DEBUG				=	UNUSED
-// 128	=	STATE_DEBUG				=	UNUSED
-
-//----------------------------------------------------------------------
-//	GLOBALS
-//----------------------------------------------------------------------
-/** Blinksignal-LED */
-volatile unsigned byte BLastState = 0;	/*!<	Merker der verschiedenen States */
-
-//----------------------------------------------------------------------
-//	Arduino Setup-Routine
-//----------------------------------------------------------------------
-
-/**
- * @brief      Setzen der PINS & Serieller Debugger
- */
+///=============================================================================
+/// Arduino Setup-Routine
+/// @brief      Setzen der PINS & Serieller Debugger
+///=============================================================================
 void setup()
 {
 	pinMode( OUT_BLINKLED,	OUTPUT );
@@ -84,13 +67,10 @@ void setup()
 	Serial.begin(115200);				/*!<	für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
 }
 
-//----------------------------------------------------------------------
-//	MAIN
-//----------------------------------------------------------------------
 
-/**
- * @brief      Hauptschleife
- */
+/// ============================================================================
+/// @brief      Main-Loop
+/// ============================================================================
 void loop()
 {
 	//-----------------------------------------------------------------------------
@@ -120,9 +100,9 @@ void loop()
 	// #2 
 }
 
-/**
- * @brief      Anfangsroutine bei Start des Programmes
- */ 
+///=============================================================================
+/// @brief      Anfangsroutine bei Start des Programmes
+///============================================================================= 
 void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
@@ -131,24 +111,24 @@ void StartRoutine()
 	bSetState( STATE_START, true )
 }
 
-/**
- * @brief      Untersucht den aktuellen State auf gültigkeit
- *
- * @param[in]  iPos  Position des States. Siehe dazu Konstanten.
- *
- * @return     { TRUE falls aktiv, ansonsten FALSE }
- */
+///=============================================================================
+/// @brief      Untersucht den aktuellen State auf gültigkeit
+///
+/// @param[in]  iPos  Position des States. Siehe dazu Konstanten.
+///
+/// @return     TRUE falls aktiv, ansonsten FALSE
+///=============================================================================
 bool bGetState( int iPos )
 {
 	return bitRead;
 }
 
-/**
- * @brief      Setzt den State nach belieben
- *
- * @param[in]  iPos    Position des States. Siehe dazu Konstanten.
- * @param[in]  bState  Gewuenschter State
- */
+//------------------------------------------------------------------------------
+/// @brief      Setzt den State nach belieben
+///
+/// @param[in]  iPos    Position des States. Siehe dazu Konstanten.
+/// @param[in]  bState  Gewuenschter State
+///
 void SetState( int iPos, bool bState )
 {
 	if (bState)
@@ -162,11 +142,10 @@ void SetState( int iPos, bool bState )
 	return;
 }
 
-//-----------------------------------------------------------------------------
-//@brief      Wenn Klingel betätigt wurde, setze die States, und unterbreche
-//            den Interrupt
-//-----------------------------------------------------------------------------
-
+///=============================================================================
+/// @brief      Wenn Klingel betätigt wurde, setze die States, und unterbreche
+///             den Interrupt
+///=============================================================================
 void interuptKlingeln()
 {
 	bSetState( STATE_KLINGEL_PUSHED, true );
@@ -176,15 +155,21 @@ void interuptKlingeln()
 	//###
 }
 
+
+///=============================================================================
+/// @brief      Funktion zum regeln des Lichtes
+///
+/// @param[in]  fFaktor  Der Faktor
+///=============================================================================
 void LightControl(float fFaktor)
 {
 }
 
-/**
- * @brief      { Wird gerade ein Öffner betätigt? }
- *
- * @return     { TRUE falls ja, ansosnten FALSE }
- */
+///=============================================================================
+/// @brief      Wird gerade ein Öffner betätigt?
+///
+/// @return     TRUE falls ja, ansosnten FALSE
+///=============================================================================
 bool bButtonPushed()
 {
 	return !( digitalRead(IN_TIMM) && digitalRead(IN_BOBBY) && digitalRead(IN_TILL) && digitalRead(IN_TOBI) && digitalRead(IN_FRANZ) );
