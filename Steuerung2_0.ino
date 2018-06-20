@@ -1,8 +1,8 @@
-/**@file Steuerung2_0.ino */
+/** @file Steuerung2_0.ino */
 //----------------------------------------------------------------------
-// Titel		:	Klingelanlage
+// @par Project:	Klingelanlage
 //----------------------------------------------------------------------
-// Funktion		:	- Steuerung der Klingelanlage mit mehreren Eingängen
+// @brief		:	- Steuerung der Klingelanlage mit mehreren Eingängen
 //					- Zusätzliche Ausgabe an verschiedenen Blinkanlagen
 //----------------------------------------------------------------------
 // Sprache		:	Arduino C
@@ -36,9 +36,6 @@
 //----------------------------------------------------------------------
 
 volatile unsigned byte BLastState = 0;								//	Merker der verschiedenen States
-
-// Metro MetroLED		= Metro((long) SPEED);						//	Helligkeitsgeschwindigkeit
-// Metro MetroKlingel	= Metro((long) DAUER);						//	Klingeldauer
 
 //----------------------------------------------------------------------
 // State-Bits:
@@ -144,7 +141,7 @@ bool bGetState( int iPos )
  * @param[in]  iPos    Position des States. Siehe dazu Konstanten.
  * @param[in]  bState  Gewuenschter State
  */
-void bSetState( int iPos, bool bState )
+void SetState( int iPos, bool bState )
 {
 	if (bState)
 	{
