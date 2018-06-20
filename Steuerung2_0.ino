@@ -1,15 +1,15 @@
-/// ============================================================================
-/// @file Steuerung2_0.ino                                                     |
-/// @mainpage ProjeKt Klingelanlage                                            |
-/// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche|
-///             Ausgabe an verschiedenen Blinkanlagen                          |
-/// @author     Timm Schütte                                                   |
-/// @author     Till Westphalen                                                |
-/// @version    2.0.1                                                          |
-/// @date       14. Dezember 2017 - Entwurf                                    |
-/// @date       20. Juni 2018 - Update                                         |
-/// @copyright  GNU Public License.                                            |
 ///=============================================================================
+/// @file Steuerung2_0.ino
+/// @mainpage ProjeKt Klingelanlage
+/// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
+///             Ausgabe an verschiedenen Blinkanlagen
+/// @author     Timm Schütte
+/// @author     Till Westphalen
+/// @version    2.0.2
+/// @date       14. Dezember 2017 - Entwurf
+/// @date       20. Juni 2018 - Update
+/// @copyright  GNU Public License.
+///             =============================================================================
 
 #include <Metro.h>						/*!< für Zeiten ohne Timer */
 #include <Arduino.h>
@@ -29,10 +29,10 @@
 #define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 
 /// ============================================================================
-/// @defgroup   STATES State-Bits                                              |
-/// @{                                                                         |
-///                                                                            |
-/// Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz        |
+/// @defgroup   STATES State-Bits                                              
+/// @{                                                                         
+///                                                                            
+/// Die folgenden Macros entkoppeln den Taktgeber von der Basisfrequenz  
 /// ============================================================================
 
 #define STATE_START				1		/*!< Startsequenz */
@@ -123,12 +123,12 @@ bool bGetState( int iPos )
 	return bitRead;
 }
 
-//------------------------------------------------------------------------------
+///=============================================================================
 /// @brief      Setzt den State nach belieben
 ///
 /// @param[in]  iPos    Position des States. Siehe dazu Konstanten.
 /// @param[in]  bState  Gewuenschter State
-///
+///=============================================================================
 void SetState( int iPos, bool bState )
 {
 	if (bState)
@@ -163,10 +163,11 @@ void interuptKlingeln()
 ///=============================================================================
 void LightControl(float fFaktor)
 {
+	return;
 }
 
 ///=============================================================================
-/// @brief      Wird gerade ein Öffner betätigt?
+/// @brief      Wird gerade ein oeffner betätigt?
 ///
 /// @return     TRUE falls ja, ansosnten FALSE
 ///=============================================================================
