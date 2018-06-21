@@ -21,6 +21,7 @@ volatile structTimer Timings =
 	.Laufzeit = 0,
 	.Leuchtdauer = 0,
 	.Entpreller = 0,
+	.State = 0,
 };
 
 //------------------------------------------------------------------------------
@@ -162,15 +163,26 @@ bool bButtonPushed()
 void UpdateTimings()
 {
 	// Bei Überlauf (alle paar Tage) Board resetten
-	unsigned long lUpdateTime;
 	if ( millis() > 0xFFAF )
 	{
 		digitalWrite( OUT_RESET, LOW );
 	}
-	else
+
+	unsigned long lUpdateTime;
+	lUpdateTime = millis() - Timings.Laufzeit;
+	Timings.Laufzeit += lUpdateTime;
+	
+	// Alle Timer aktualisieren bei Bedarf
+	int i;
+	long *p;
+	p = (long*) &Timings;
+
+	for (i = 0; i>=7; i++)
 	{
-		lUpdateTime = millis() - Timings.Laufzeit;
-		Timings.Laufzeit += lUpdateTime;
+		if ( bGetState( i, &Timings.State ))
+		{
+			*(p + ((long) i)) += 
+		}
 	}
 	return;
 }
