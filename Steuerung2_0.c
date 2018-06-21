@@ -219,7 +219,7 @@ void CheckKlingel()
 	{
 		if (ENTPRELLDAUER > Timings.Entpreller)
 		{
-			bSetState()
+			GetState
 		}
 	}
 }

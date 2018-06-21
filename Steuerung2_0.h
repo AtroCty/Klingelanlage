@@ -77,8 +77,8 @@ typedef struct
 #define STATE_DENSITY_TOGGLE	16		/*!< Hell/Dunkler werden des Lichtes */
 #define STATE_DEBUG				32		/*!< TESTSTATE */
 /// Timer States
-#define TIMER_ENTPRELLER		2		/*!< Entpreller */
 #define TIMER_LEUCHTDAUER		1		/*!< Leuchtdauer */
+#define TIMER_ENTPRELLER		2		/*!< Entpreller */
 /// @}
 
 #endif
