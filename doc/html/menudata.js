@@ -36,7 +36,8 @@ var menudata={children:[
 {text:"l",url:"globals.html#index_l"},
 {text:"o",url:"globals.html#index_o"},
 {text:"s",url:"globals.html#index_s"},
-{text:"t",url:"globals.html#index_t"}]},
+{text:"t",url:"globals.html#index_t"},
+{text:"u",url:"globals.html#index_u"}]},
 {text:"Funktionen",url:"globals_func.html"},
 {text:"Variablen",url:"globals_vars.html"},
 {text:"Makrodefinitionen",url:"globals_defs.html"}]}]}]}

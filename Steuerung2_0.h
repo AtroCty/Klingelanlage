@@ -31,10 +31,10 @@
 
 typedef struct
 {
-	unsigned byte State;
 	unsigned long Laufzeit;
 	unsigned long Leuchtdauer;
 	unsigned long Entpreller;
+	unsigned byte State;
 } structTimer;
 
 ///=============================================================================
@@ -47,6 +47,7 @@ typedef struct
 #define OUT_BLINKLED	9				/*!< Blinksignal-LED */
 #define OUT_TESTLED		10				/*!< Test-LED */
 #define OUT_TRELAIS		5				/*!< Relais für den Türsummer */
+#define OUT_RESET		13				/*!< Reset des Boards */
 #define IN_TIMM			2				/*!< Klingel-Relais Timm */
 #define IN_BOBBY		4				/*!< Klingel-Relais Bobby */
 #define IN_TILL			6				/*!< Klingel-Relais Till */
@@ -75,8 +76,8 @@ typedef struct
 #define STATE_DENSITY_TOGGLE	16		/*!< Hell/Dunkler werden des Lichtes */
 #define STATE_DEBUG				32		/*!< TESTSTATE */
 /// Timer States
-#define STATE_ENTPRELLER		1		/*!< Entprellerr */
-#define STATE_LEUCHTDAUER		2		/*!< Klingel-Routine gestartet */
+#define STATE_ENTPRELLER		0		/*!< Entpreller */
+#define STATE_LEUCHTDAUER		1		/*!< Leuchtdauer */
 /// @}
 
 

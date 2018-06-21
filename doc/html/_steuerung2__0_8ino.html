@@ -101,10 +101,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_ste
 <tr class="memitem:a0e1ed9b98554178dc26aeee1a81988c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_steuerung2__0_8ino.html#a0e1ed9b98554178dc26aeee1a81988c1">bButtonPushed</a> ()</td></tr>
 <tr class="memdesc:a0e1ed9b98554178dc26aeee1a81988c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wird gerade ein Öffner betätigt?  <a href="#a0e1ed9b98554178dc26aeee1a81988c1">Mehr ...</a><br /></td></tr>
 <tr class="separator:a0e1ed9b98554178dc26aeee1a81988c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6de1e4b68349dff72598c8a3e45f793"><td class="memItemLeft" align="right" valign="top"><a id="af6de1e4b68349dff72598c8a3e45f793"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_steuerung2__0_8ino.html#af6de1e4b68349dff72598c8a3e45f793">lLoopDuration</a> ()</td></tr>
-<tr class="memdesc:af6de1e4b68349dff72598c8a3e45f793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aktualisiert die vergangene Zeit, und resettet bei Überlauf. <br /></td></tr>
-<tr class="separator:af6de1e4b68349dff72598c8a3e45f793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b31ec17cd535f7df26f1f6bc8bbf83a"><td class="memItemLeft" align="right" valign="top"><a id="a8b31ec17cd535f7df26f1f6bc8bbf83a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_steuerung2__0_8ino.html#a8b31ec17cd535f7df26f1f6bc8bbf83a">UpdateTimings</a> ()</td></tr>
+<tr class="memdesc:a8b31ec17cd535f7df26f1f6bc8bbf83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aktualisiert die vergangene Zeit, und resettet bei Überlauf. <br /></td></tr>
+<tr class="separator:a8b31ec17cd535f7df26f1f6bc8bbf83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variablen</h2></td></tr>
@@ -278,7 +278,7 @@ volatile unsigned byte&#160;</td><td class="memItemRight" valign="bottom"><a cla
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initialisierung:</b><div class="fragment"><div class="line">=</div><div class="line">{</div><div class="line">    .Laufzeit = 0,</div><div class="line">    .Leuchtdauer = 0,</div><div class="line">    .Entpreller = 0,</div><div class="line">}</div></div><!-- fragment -->
+<b>Initialisierung:</b><div class="fragment"><div class="line">=</div><div class="line">{</div><div class="line">    .Laufzeit = 0,</div><div class="line">    .Leuchtdauer = 0,</div><div class="line">    .Entpreller = 0,</div><div class="line">    .State = 0,</div><div class="line">}</div></div><!-- fragment -->
 <p>Timer des Programmes. </p>
 
 </div>
