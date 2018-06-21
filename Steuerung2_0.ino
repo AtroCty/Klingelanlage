@@ -44,6 +44,7 @@ void setup()
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
 	Serial.begin(115200);				/*!< für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
+	StartRoutine();
 }
 
 //------------------------------------------------------------------------------
@@ -51,12 +52,12 @@ void setup()
 ///
 void loop()
 {
-	//-----------------------------------------------------------------------------
-	// #0 Start-Routine, wird nur einmal ausgeführt.
-	if ( !bGetState( STATE_START ))
-	{
-		StartRoutine();
-	}
+	// //-----------------------------------------------------------------------------
+	// // #0 Start-Routine, wird nur einmal ausgeführt.
+	// if ( !bGetState( STATE_START ))
+	// {
+	// 	StartRoutine();
+	// }
 	//----------------------------------------------------------------------
 	// #1 Button-Check, und Tueroeffnungsroutine. Hoechste Prioritaet.
 	if ( bButtonPushed() )
@@ -75,8 +76,11 @@ void loop()
 		bSetState(STATE_KLINGEL_PUSHED, false);
 	}
 	//----------------------------------------------------------------------
-	// #2 Synchronisation
+	// #2 Synchronisation aller Timer
 	UpdateTimings();
+	//----------------------------------------------------------------------
+	// #3 Wurde Klingel betätigt? Checke Entprellung
+	CheckKlingel();
 
 }
 
@@ -88,7 +92,7 @@ void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
 	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), interuptKlingeln, FALLING);
-	SetState( STATE_START, true )
+	SetState( STATE_START, &BLastState, TRUE )
 }
 
 //------------------------------------------------------------------------------
@@ -111,7 +115,7 @@ bool bGetState( int iPos, byte *BStates )
 /// @param[in]  bState   Gewünschter State
 /// @param      BStates  Merker-Bytes
 ///
-void SetState( int iPos, bool bState, byte *BStates )
+void SetState( int iPos, byte *BStates, bool bState )
 {
 	if (bState)
 	{
@@ -130,7 +134,7 @@ void SetState( int iPos, bool bState, byte *BStates )
 ///
 void interuptKlingeln()
 {
-	bSetState( STATE_KLINGEL_PUSHED, true );
+	bSetState( STATE_KLINGEL_PUSHED, &BLastState, TRUE );
 	detachInterrupt(IN_KLINGEL);
 	//### DEBUG
 	Serial.println(("RINgRING "));
@@ -138,12 +142,30 @@ void interuptKlingeln()
 }
 
 //------------------------------------------------------------------------------
-/// @brief      Funktion zum Regeln des Lichtes
+/// @brief      Funktion zum Regeln der verschiedenen Timer
 ///
-/// @param[in]  fFaktor  Geschwindigkeit des Blinkens
+/// @param[in]  iTimer      Timer-ID (siehe Header)
+/// @param[in]  bStartStop  TRUE für starten, FALSE für Stop/Reset
 ///
-void LightControl(float fFaktor)
+void TimerControl(int iTimer, bool bStartStop)
 {
+	if (bStartStop)
+	{
+		if (bGetState(iTimer, &Timings.State))
+		{
+			SetState(iTimer, &Timings.State, TRUE);
+		}
+	}
+	else
+	{
+		if (!(bGetState(iTimer, &Timings.State)))
+		{
+			SetState(iTimer, &Timings.State, FALSE);
+			long *p;
+			p = (long*) &Timings;
+			*(p + ((long) iTimer)) = 0;
+		}
+	}
 	return;
 }
 
@@ -181,8 +203,23 @@ void UpdateTimings()
 	{
 		if ( bGetState( i, &Timings.State ))
 		{
-			*(p + ((long) i)) += 
+			*(p + ((long) i)) += lUpdateTime;
 		}
 	}
 	return;
+}
+
+//------------------------------------------------------------------------------
+/// @brief      Überprüft, ob Klingel betätigt wurde, und Entprellzeiten
+///             eingehalten wurde
+///
+void CheckKlingel()
+{
+	if (GetState( STATE_KLINGEL_PUSHED, &BLastState))
+	{
+		if (ENTPRELLDAUER > Timings.Entpreller)
+		{
+			bSetState()
+		}
+	}
 }

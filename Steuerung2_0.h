@@ -61,6 +61,7 @@ typedef struct
 /// @{
 ///
 #define LEUCHTDAUER		10000.0			/*!< in Milli-Sekunden */
+#define ENTPRELLDAUER	200.0			/*!< in Milli-Sekunden */
 #define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
 #define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 /// @}
@@ -76,9 +77,8 @@ typedef struct
 #define STATE_DENSITY_TOGGLE	16		/*!< Hell/Dunkler werden des Lichtes */
 #define STATE_DEBUG				32		/*!< TESTSTATE */
 /// Timer States
-#define STATE_ENTPRELLER		0		/*!< Entpreller */
-#define STATE_LEUCHTDAUER		1		/*!< Leuchtdauer */
+#define TIMER_ENTPRELLER		2		/*!< Entpreller */
+#define TIMER_LEUCHTDAUER		1		/*!< Leuchtdauer */
 /// @}
-
 
 #endif
