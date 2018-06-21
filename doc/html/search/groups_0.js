@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pin_2dbelegung',['Pin-Belegung',['../group___p_i_n_s.html',1,'']]]
+  ['geschwindigkeiten',['Geschwindigkeiten',['../group___s_p_e_e_d.html',1,'']]]
 ];

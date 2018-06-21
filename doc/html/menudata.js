@@ -24,10 +24,19 @@ for the JavaScript code in this file
 var menudata={children:[
 {text:"Hauptseite",url:"index.html"},
 {text:"Module",url:"modules.html"},
+{text:"Datenstrukturen",url:"annotated.html",children:[
+{text:"Datenstrukturen",url:"annotated.html"},
+{text:"Datenstruktur-Verzeichnis",url:"classes.html"}]},
 {text:"Dateien",url:"files.html",children:[
 {text:"Auflistung der Dateien",url:"files.html"},
 {text:"Globale Elemente",url:"globals.html",children:[
-{text:"Alle",url:"globals.html"},
+{text:"Alle",url:"globals.html",children:[
+{text:"b",url:"globals.html#index_b"},
+{text:"i",url:"globals.html#index_i"},
+{text:"l",url:"globals.html#index_l"},
+{text:"o",url:"globals.html#index_o"},
+{text:"s",url:"globals.html#index_s"},
+{text:"t",url:"globals.html#index_t"}]},
 {text:"Funktionen",url:"globals_func.html"},
 {text:"Variablen",url:"globals_vars.html"},
 {text:"Makrodefinitionen",url:"globals_defs.html"}]}]}]}

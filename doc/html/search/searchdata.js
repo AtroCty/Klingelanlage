@@ -1,21 +1,21 @@
 var indexSectionsWithContent =
 {
-  0: "bdilops",
+  0: "bgilopst",
   1: "s",
-  2: "bils",
-  3: "b",
-  4: "ds",
-  5: "ps",
+  2: "s",
+  3: "bils",
+  4: "bt",
+  5: "gps",
   6: "p"
 };
 
 var indexSectionNames =
 {
   0: "all",
-  1: "files",
-  2: "functions",
-  3: "variables",
-  4: "defines",
+  1: "classes",
+  2: "files",
+  3: "functions",
+  4: "variables",
   5: "groups",
   6: "pages"
 };
@@ -23,10 +23,10 @@ var indexSectionNames =
 var indexSectionLabels =
 {
   0: "Alle",
-  1: "Dateien",
-  2: "Funktionen",
-  3: "Variablen",
-  4: "Makrodefinitionen",
+  1: "Datenstrukturen",
+  2: "Dateien",
+  3: "Funktionen",
+  4: "Variablen",
   5: "Gruppen",
   6: "Seiten"
 };

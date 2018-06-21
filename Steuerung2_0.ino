@@ -16,10 +16,11 @@
 /// @brief      Merker der verschiedenen States
 volatile unsigned byte BLastState = 0;
 /// @brief      Timer des Programmes
-volatile structTimer Timings = { 
+volatile structTimer Timings =
+{
 	.Laufzeit = 0,
 	.Leuchtdauer = 0,
-	.Entpreller = 0 
+	.Entpreller = 0,
 };
 
 //------------------------------------------------------------------------------
@@ -28,9 +29,13 @@ volatile structTimer Timings = {
 ///
 void setup()
 {
+	// WICHTIG! Sonst startet das Board permanent neu!
+	digitalWrite( OUT_RESET, HIGH );
+
 	pinMode( OUT_BLINKLED,	OUTPUT );
 	pinMode( OUT_TESTLED,	OUTPUT );
 	pinMode( OUT_TRELAIS,	OUTPUT );
+	pinMode( OUT_RESET,		OUTPUT );
 	pinMode( IN_TIMM,		INPUT_PULLUP );
 	pinMode( IN_BOBBY,		INPUT_PULLUP );
 	pinMode( IN_TILL,		INPUT_PULLUP );
@@ -69,7 +74,9 @@ void loop()
 		bSetState(STATE_KLINGEL_PUSHED, false);
 	}
 	//----------------------------------------------------------------------
-	// #2 Entpreller-Routine
+	// #2 Synchronisation
+	UpdateTimings();
+
 }
 
 //------------------------------------------------------------------------------
@@ -84,32 +91,34 @@ void StartRoutine()
 }
 
 //------------------------------------------------------------------------------
-/// @brief      Untersucht den aktuellen State auf gültigkeit
+/// @brief      Untersucht den aktuellen State auf Gültigkeit
 ///
-/// @param[in]  iPos  Position des States. Siehe dazu Konstanten.
+/// @param[in]  iPos     Position des States. Siehe dazu Konstanten.
+/// @param      BStates  Merker-Bytes
 ///
 /// @return     TRUE falls aktiv, ansonsten FALSE
 ///
-bool bGetState( int iPos )
+bool bGetState( int iPos, byte *BStates )
 {
-	return bitRead;
+	return bitRead( *BStates, iPos );
 }
 
 //------------------------------------------------------------------------------
 /// @brief      Setzt den State nach belieben
 ///
-/// @param[in]  iPos    Position des States. Siehe dazu Konstanten
-/// @param[in]  bState  Gewünschter State
+/// @param[in]  iPos     Position des States. Siehe dazu Konstanten
+/// @param[in]  bState   Gewünschter State
+/// @param      BStates  Merker-Bytes
 ///
-void SetState( int iPos, bool bState )
+void SetState( int iPos, bool bState, byte *BStates )
 {
 	if (bState)
 	{
-		bitSet( BLastState, iPos );
+		bitSet( *BStates, iPos );
 	}
 	else
 	{
-		bitClear( BLastState, iPos );
+		bitClear( *BStates, iPos );
 	}
 	return;
 }
@@ -140,7 +149,7 @@ void LightControl(float fFaktor)
 //------------------------------------------------------------------------------
 /// @brief      Wird gerade ein Öffner betätigt?
 ///
-/// @return     TRUE falls ja, ansosnten FALSE
+/// @return     TRUE falls ja, ansonsten FALSE
 ///
 bool bButtonPushed()
 {
@@ -150,14 +159,18 @@ bool bButtonPushed()
 //------------------------------------------------------------------------------
 /// @brief      Aktualisiert die vergangene Zeit, und resettet bei Überlauf
 ///
-unsigned long lLoopDuration()
+void UpdateTimings()
 {
-	if ( millis() < Timings.Laufzeit )
+	// Bei Überlauf (alle paar Tage) Board resetten
+	unsigned long lUpdateTime;
+	if ( millis() > 0xFFAF )
 	{
-		Timings.Laufzeit = millis();
+		digitalWrite( OUT_RESET, LOW );
 	}
 	else
 	{
+		lUpdateTime = millis() - Timings.Laufzeit;
+		Timings.Laufzeit += lUpdateTime;
 	}
 	return;
 }
