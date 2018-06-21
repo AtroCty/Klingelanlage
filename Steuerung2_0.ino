@@ -10,55 +10,17 @@
 /// @date       20. Juni 2018 - Update
 /// @copyright  GNU Public License.
 
-#include <Metro.h>						/*!< für Zeiten ohne Timer */
-
-typedef struct
-{
-	volatile unsigned long Leuchtdauer;
-	volatile unsigned long Entpreller;
-} structTimer;
-
-//------------------------------------------------------------------------------
-/// @defgroup   PINS Pin-Belegung
-/// @{
-///
-#define OUT_BLINKLED	9				/*!< Blinksignal-LED */
-#define OUT_TESTLED		10				/*!< Test-LED */
-#define OUT_TRELAIS		5				/*!< Relais für den Türsummer */
-#define IN_TIMM			2				/*!< Klingel-Relais Timm */
-#define IN_BOBBY		4				/*!< Klingel-Relais Bobby */
-#define IN_TILL			6				/*!< Klingel-Relais Till */
-#define IN_TOBI			7				/*!< Klingel-Relais Tobi */
-#define IN_FRANZ		8				/*!< Klingel-Relais Franz */
-#define IN_KLINGEL		3				/*!< Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind */
-/// @}
-
-//------------------------------------------------------------------------------
-/// @defgroup   SPEED Geschwindigkeiten
-/// @{
-///
-#define LEUCHTDAUER		10000.0			/*!< in Milli-Sekunden */
-#define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
-#define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
-/// @}
-
-//------------------------------------------------------------------------------
-/// @defgroup   STATES State-Bits
-/// @{
-///
-#define STATE_START				1		/*!< Startsequenz */
-#define STATE_KLINGEL_ROUTINE	2		/*!< Klingel-Routine gestartet */
-#define STATE_KLINGEL_PUSHED	4		/*!< Klingel wurde betätigt */
-#define STATE_DOOR_OPEN			8		/*!< Wird gerade Tür geöffnet? */
-#define STATE_DENSITY_TOGGLE	16		/*!< Hell/Dunkler werden des Lichtes */
-#define STATE_DEBUG				32		/*!< TESTSTATE */
+#include <Steuerung2_0.h>				/*!< Variablen-Deklarationen */
 
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States
 volatile unsigned byte BLastState = 0;
 /// @brief      Timer des Programmes
-volatile unsigned long lElapsedTime = 0;
-/// @brief      Timer des Programmes
+volatile structTimer Timings = { 
+	.Laufzeit = 0,
+	.Leuchtdauer = 0,
+	.Entpreller = 0 
+};
 
 //------------------------------------------------------------------------------
 /// Arduino Setup-Routine
@@ -188,11 +150,11 @@ bool bButtonPushed()
 //------------------------------------------------------------------------------
 /// @brief      Aktualisiert die vergangene Zeit, und resettet bei Überlauf
 ///
-void UpdateTime()
+unsigned long lLoopDuration()
 {
-	if ( millis() < lElapsedTime )
+	if ( millis() < Timings.Laufzeit )
 	{
-		lElapsedTime = millis();
+		Timings.Laufzeit = millis();
 	}
 	else
 	{
