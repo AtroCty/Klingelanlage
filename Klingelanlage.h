@@ -1,5 +1,5 @@
 ///=============================================================================
-/// @file Steuerung2_0.h
+/// @file Klingelanlage.h
 /// @mainpage ProjeKt Klingelanlage
 /// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
 ///             Ausgabe an verschiedenen Blinkanlagen
@@ -26,16 +26,28 @@
 ///  * MA 02110-1301, USA.
 ///=============================================================================
 
-#ifndef Steuerung2_0_h
-#define Steuerung2_0_h
+#ifndef Klingelanlage
+#define Klingelanlage
+
+#include <Arduino.h>
 
 typedef struct
 {
 	unsigned long Laufzeit;
 	unsigned long Leuchtdauer;
 	unsigned long Entpreller;
-	unsigned byte State;
+	byte State;
 } structTimer;
+
+void StartRoutine();
+bool bGetState( int iPos, volatile byte *BStates );
+void SetState( int iPos, volatile byte *BStates, bool bState );
+void InteruptKlingeln();
+void TimerControl(int iTimer, bool bStartStop);
+bool bButtonPushed();
+void UpdateTimings();
+void CheckKlingel();
+
 
 ///=============================================================================
 /// Konstanten & Makros
