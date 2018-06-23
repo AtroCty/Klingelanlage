@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timings',['Timings',['../_steuerung2__0_8ino.html#a69aa0bd422e4bec3b33196a0bad1f29e',1,'Steuerung2_0.ino']]]
+  ['structtimings',['structTimings',['../_klingelanlage_8ino.html#aa7e3d6f970debd821fc6a8053c48256b',1,'structTimings():&#160;Klingelanlage.ino'],['../_klingelanlage_8h.html#aa7e3d6f970debd821fc6a8053c48256b',1,'structTimings():&#160;Klingelanlage.ino']]]
 ];

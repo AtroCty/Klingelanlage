@@ -1,6 +1,5 @@
 //------------------------------------------------------------------------------
 /// @file Klingelanlage.ino
-/// @mainpage ProjeKt Klingelanlage
 /// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
 ///             Ausgabe an verschiedenen Blinkanlagen
 /// @author     Timm Schütte
@@ -14,14 +13,14 @@
 
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States
-volatile byte BLastState = 0;
+volatile byte bytLastState = 0;
 /// @brief      Timer des Programmes
-volatile structTimer Timings =
+volatile structTimer structTimings =
 {
-	.Laufzeit = 0,
-	.Leuchtdauer = 0,
-	.Entpreller = 0,
-	.State = 0,
+	.u_lngLaufzeit = 0,
+	.u_lngLeuchtdauer = 0,
+	.u_lngEntpreller = 0,
+	.bytState = 0,
 };
 
 //------------------------------------------------------------------------------
@@ -30,7 +29,7 @@ volatile structTimer Timings =
 ///
 void InteruptKlingeln()
 {
-	SetState( STATE_KLINGEL_PUSHED, &BLastState, true );
+	SetState( STATE_KLINGEL_PUSHED, &bytLastState, true );
 	detachInterrupt(IN_KLINGEL);
 	//### DEBUG
 	Serial.println(("RINgRING "));
@@ -40,32 +39,32 @@ void InteruptKlingeln()
 //------------------------------------------------------------------------------
 /// @brief      Untersucht den aktuellen State auf Gültigkeit
 ///
-/// @param[in]  iPos     Position des States. Siehe dazu Konstanten.
-/// @param      BStates  Merker-Bytes
+/// @param[in]  intPos     Position des States. Siehe dazu Konstanten.
+/// @param      bytStates  Merker-Bytes
 ///
 /// @return     true falls aktiv, ansonsten false
 ///
-bool bGetState( int iPos, volatile byte *BStates )
+bool bGetState( int intPos, volatile byte *bytStates )
 {
-	return bitRead( *BStates, iPos );
+	return bitRead( *bytStates, intPos );
 }
 
 //------------------------------------------------------------------------------
 /// @brief      Setzt den State nach belieben
 ///
-/// @param[in]  iPos     Position des States. Siehe dazu Konstanten
-/// @param[in]  bState   Gewünschter State
-/// @param      BStates  Merker-Bytes
+/// @param[in]  intPos     Position des States. Siehe dazu Konstanten
+/// @param      bytStates  Merker-Bytes
+/// @param[in]  bState     Gewünschter State
 ///
-void SetState( int iPos, volatile byte *BStates, bool bState )
+void SetState( int intPos, volatile byte *bytStates, bool bState )
 {
 	if (bState)
 	{
-		bitSet( *BStates, iPos );
+		bitSet( *bytStates, intPos );
 	}
 	else
 	{
-		bitClear( *BStates, iPos );
+		bitClear( *bytStates, intPos );
 	}
 	return;
 }
@@ -78,32 +77,32 @@ void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
 	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), InteruptKlingeln, FALLING);
-	SetState( STATE_START, &BLastState, true );
+	SetState( STATE_START, &bytLastState, true );
 }
 
 //------------------------------------------------------------------------------
 /// @brief      Funktion zum Regeln der verschiedenen Timer
 ///
-/// @param[in]  iTimer      Timer-ID (siehe Header)
+/// @param[in]  intTimer    Timer-ID (siehe Header)
 /// @param[in]  bStartStop  true für starten, false für Stop/Reset
 ///
-void TimerControl(int iTimer, bool bStartStop)
+void TimerControl(int intTimer, bool bStartStop)
 {
 	if (bStartStop)
 	{
-		if (bGetState(iTimer, &Timings.State))
+		if (bGetState(intTimer, &structTimings.bytState))
 		{
-			SetState(iTimer, &Timings.State, true);
+			SetState(intTimer, &structTimings.bytState, true);
 		}
 	}
 	else
 	{
-		if (!(bGetState(iTimer, &Timings.State)))
+		if (!(bGetState(intTimer, &structTimings.bytState)))
 		{
-			SetState(iTimer, &Timings.State, false);
+			SetState(intTimer, &structTimings.bytState, false);
 			long *p;
-			p = (long*) &Timings;
-			*(p + ((long) iTimer)) = 0;
+			p = (long*) &structTimings;
+			*(p + ((long) intTimer)) = 0;
 		}
 	}
 	return;
@@ -129,18 +128,18 @@ void UpdateTimings()
 	{
 		digitalWrite( OUT_RESET, LOW );
 	}
-	unsigned long lUpdateTime;
-	lUpdateTime = millis() - Timings.Laufzeit;
-	Timings.Laufzeit += lUpdateTime;
+	unsigned long u_lngUpdateTime;
+	u_lngUpdateTime = millis() - structTimings.u_lngLaufzeit;
+	structTimings.u_lngLaufzeit += u_lngUpdateTime;
 	// Alle Timer aktualisieren bei Bedarf
 	int i;
 	long *p;
-	p = (long*) &Timings;
+	p = (long*) &structTimings;
 	for (i = 0; i >= 7; i++)
 	{
-		if ( bGetState( i, &Timings.State ))
+		if ( bGetState( i, &structTimings.bytState ))
 		{
-			*(p + ((long) i)) += lUpdateTime;
+			*(p + ((long) i)) += u_lngUpdateTime;
 		}
 	}
 	return;
@@ -152,9 +151,9 @@ void UpdateTimings()
 ///
 void CheckKlingel()
 {
-	if (bGetState( STATE_KLINGEL_PUSHED, &BLastState))
+	if (bGetState( STATE_KLINGEL_PUSHED, &bytLastState))
 	{
-		if (ENTPRELLDAUER > Timings.Entpreller)
+		if (ENTPRELLDAUER > structTimings.u_lngEntpreller)
 		{
 		}
 	}
@@ -198,18 +197,18 @@ void loop()
 	// #1 Button-Check, und Tueroeffnungsroutine. Hoechste Prioritaet.
 	if ( bButtonPushed() )
 	{
-		if ( !bGetState(STATE_KLINGEL_PUSHED, &BLastState) )
+		if ( !bGetState(STATE_KLINGEL_PUSHED, &bytLastState) )
 		{
 			// Öffne Tür
 			digitalWrite( OUT_TRELAIS, LOW );
-			SetState(STATE_KLINGEL_PUSHED, &BLastState, true);
+			SetState(STATE_KLINGEL_PUSHED, &bytLastState, true);
 		}
 	}
-	else if (bGetState(STATE_KLINGEL_PUSHED, &BLastState) )
+	else if (bGetState(STATE_KLINGEL_PUSHED, &bytLastState) )
 	{
 		// Schließe Tür
 		digitalWrite( OUT_TRELAIS, HIGH );
-		SetState(STATE_KLINGEL_PUSHED, &BLastState, false);
+		SetState(STATE_KLINGEL_PUSHED, &bytLastState, false);
 	}
 	//----------------------------------------------------------------------
 	// #2 Synchronisation aller Timer

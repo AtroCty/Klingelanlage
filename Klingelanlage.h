@@ -1,6 +1,6 @@
-///=============================================================================
+//------------------------------------------------------------------------------
 /// @file Klingelanlage.h
-/// @mainpage ProjeKt Klingelanlage
+/// @mainpage Projekt Klingelanlage
 /// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
 ///             Ausgabe an verschiedenen Blinkanlagen
 /// @author     Timm Schütte
@@ -9,48 +9,70 @@
 /// @date       14. Dezember 2017 - Entwurf
 /// @date       20. Juni 2018 - Update 2.0
 /// @date       21. Juni 2018 - Auslagerung in Header
-/// @copyright  GNU Public License.
-///  * This program is free software; you can redistribute it and/or modify
-///  * it under the terms of the GNU General Public License as published by
-///  * the Free Software Foundation; either version 2 of the License, or
-///  * (at your option) any later version.
+/// @section copyright_sec Copyright
+/// @copyright  GNU Public License. This program is free software; you can
+///             redistribute it and/or modify it under the terms of the GNU
+///             General Public License as published by the Free Software
+///             Foundation; either version 2 of the License, or (at your option)
+///             any later version.
 ///
-///  * This program is distributed in the hope that it will be useful,
-///  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-///  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///  * GNU General Public License for more details.
+///             This program is distributed in the hope that it will be useful,
+///             but WITHOUT ANY WARRANTY; without even the implied warranty of
+///             MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+///             GNU General Public License for more details.
 ///
-///  * You should have received a copy of the GNU General Public License
-///  * along with this program; if not, write to the Free Software
-///  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-///  * MA 02110-1301, USA.
-///=============================================================================
+///             You should have received a copy of the GNU General Public
+///             License along with this program; if not, write to the Free
+///             Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+///             Boston, MA 02110-1301, USA.
+/// @section naming_sec Namenskonvektion
+/// Typische Variablen-Namensgebungen:
+/// @subsection settings_subsec Eigenschaft
+/// Eigenschaft    	| Naming 		| Beispiel
+/// -------------	| -------------	| -------------
+/// Global  		| g_			| g_intZaehler
+/// unsigned		| u_			| u_chr, u_lng, u_int
+/// Konstanten 		| GROSSCHREIBEN	| OUT_KABEL
+///
+/// @subsection datatype_subsec Datentypen
+/// Datentyp      	| Naming 		| Beispiel
+/// -------------	| -------------	| -------------
+/// String  		| str			| strInputEncoder
+/// bool			| b				| bSchalter
+/// byte			| byt			| bytStates
+/// char			| chr			| chrBuchstabe
+/// double			| dbl			| dblLangeVariable
+/// float			| flt			| fltFliessend
+/// int				| int			| intZaehler
+/// long			| lng			| lngLangeSachen
+/// short			| srt			| srtZehner
+/// struct			| struct		| structTimer
 
-#ifndef Klingelanlage
-#define Klingelanlage
+#ifndef KLINGELANLAGE_H
+#define KLINGELANLAGE_H
 
 #include <Arduino.h>
 
-typedef struct
-{
-	unsigned long Laufzeit;
-	unsigned long Leuchtdauer;
-	unsigned long Entpreller;
-	byte State;
+//------------------------------------------------------------------------------
+/// @brief      Timer des Programmes
+typedef struct {
+	unsigned long u_lngLaufzeit;
+	unsigned long u_lngLeuchtdauer;
+	unsigned long u_lngEntpreller;
+	byte bytState;
 } structTimer;
 
-extern volatile byte BLastState;
-extern volatile structTimer Timings;
+extern volatile byte bytLastState;
+extern volatile structTimer structTimings;
 
 void StartRoutine();
-bool bGetState( int iPos, volatile byte *BStates );
-void SetState( int iPos, volatile byte *BStates, bool bState );
+bool bGetState( int intPos, volatile byte *bytStates );
+void SetState( int intPos, volatile byte *bytStates, bool bState );
 void InteruptKlingeln();
-void TimerControl(int iTimer, bool bStartStop);
+void TimerControl(int intTimer, bool bStartStop);
 bool bButtonPushed();
 void UpdateTimings();
 void CheckKlingel();
-
 
 ///=============================================================================
 /// Konstanten & Makros

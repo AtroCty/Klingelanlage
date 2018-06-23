@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Haussteuerung: ProjeKt Klingelanlage</title>
+<title>Haussteuerung: Projekt Klingelanlage</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
 
 <div class="header">
   <div class="headertitle">
-<div class="title">ProjeKt Klingelanlage </div>  </div>
+<div class="title">Projekt Klingelanlage </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche Ausgabe an verschiedenen Blinkanlagen </p><dl class="section author"><dt>Autor</dt><dd>Timm Schütte </dd>
@@ -73,8 +73,55 @@ Till Westphalen </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>2.0.2 </dd></dl>
 <dl class="section date"><dt>Datum</dt><dd>14. Dezember 2017 - Entwurf </dd>
 <dd>
-20. Juni 2018 - Update </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>GNU Public License. </dd></dl>
+20. Juni 2018 - Update 2.0 </dd>
+<dd>
+21. Juni 2018 - Auslagerung in Header </dd></dl>
+<h1><a class="anchor" id="copyright_sec"></a>
+Copyright</h1>
+<dl class="section copyright"><dt>Copyright</dt><dd>GNU Public License. This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</dd></dl>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA. </p>
+<h1><a class="anchor" id="naming_sec"></a>
+Namenskonvektion</h1>
+<p>Typische Variablen-Namensgebungen: </p>
+<h2><a class="anchor" id="settings_subsec"></a>
+Eigenschaft</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Eigenschaft  </th><th class="markdownTableHeadNone">Naming  </th><th class="markdownTableHeadNone">Beispiel -&mdash;   </th></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Global  </td><td class="markdownTableBodyNone">g_  </td><td class="markdownTableBodyNone">g_intZaehler   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyNone">unsigned  </td><td class="markdownTableBodyNone">u_  </td><td class="markdownTableBodyNone">u_chr, u_lng, u_int   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Konstanten  </td><td class="markdownTableBodyNone">GROSSCHREIBEN  </td><td class="markdownTableBodyNone">OUT_KABEL   </td></tr>
+</table>
+<h2><a class="anchor" id="datatype_subsec"></a>
+Datentypen</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Datentyp  </th><th class="markdownTableHeadNone">Naming  </th><th class="markdownTableHeadNone">Beispiel -&mdash;   </th></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">String  </td><td class="markdownTableBodyNone">str  </td><td class="markdownTableBodyNone">strInputEncoder   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyNone">bool  </td><td class="markdownTableBodyNone">b  </td><td class="markdownTableBodyNone">bSchalter   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">byte  </td><td class="markdownTableBodyNone">byt  </td><td class="markdownTableBodyNone">bytStates   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyNone">char  </td><td class="markdownTableBodyNone">chr  </td><td class="markdownTableBodyNone">chrBuchstabe   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">double  </td><td class="markdownTableBodyNone">dbl  </td><td class="markdownTableBodyNone">dblLangeVariable   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyNone">float  </td><td class="markdownTableBodyNone">flt  </td><td class="markdownTableBodyNone">fltFliessend   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">int  </td><td class="markdownTableBodyNone">int  </td><td class="markdownTableBodyNone">intZaehler   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyNone">long  </td><td class="markdownTableBodyNone">lng  </td><td class="markdownTableBodyNone">lngLangeSachen   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">short  </td><td class="markdownTableBodyNone">srt  </td><td class="markdownTableBodyNone">srtZehner   </td></tr>
+<tr class="markdownTableBody" class="markdownTableRowEven">
+<td class="markdownTableBodyNone">struct  </td><td class="markdownTableBodyNone">struct  </td><td class="markdownTableBodyNone"><a class="el" href="structstruct_timer.html" title="Timer des Programmes. ">structTimer</a>   </td></tr>
+</table>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
