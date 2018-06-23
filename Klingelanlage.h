@@ -39,6 +39,9 @@ typedef struct
 	byte State;
 } structTimer;
 
+extern volatile byte BLastState;
+extern volatile structTimer Timings;
+
 void StartRoutine();
 bool bGetState( int iPos, volatile byte *BStates );
 void SetState( int iPos, volatile byte *BStates, bool bState );
