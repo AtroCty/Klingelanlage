@@ -65,7 +65,9 @@ typedef struct {
 } structTimer;
 
 extern volatile uint8_t bytLastState;
+#define STATES_GENERIC 		&bytLastState
 extern volatile structTimer structTimings;
+#define STATES_TIMER 		&structTimings.bytState
 
 //------------------------------------------------------------------------------
 /// @brief      Startet eine Routine.
@@ -86,16 +88,16 @@ void CheckKlingel();
 /// @defgroup   PINS Pin-Belegung
 /// @{
 ///
-#define OUT_BLINKLED	9				/*!< Blinksignal-LED */
-#define OUT_TESTLED		10				/*!< Test-LED */
-#define OUT_TRELAIS		5				/*!< Relais für den Türsummer */
-#define OUT_RESET		13				/*!< Reset des Boards */
-#define IN_TIMM			2				/*!< Klingel-Relais Timm */
-#define IN_BOBBY		4				/*!< Klingel-Relais Bobby */
-#define IN_TILL			6				/*!< Klingel-Relais Till */
-#define IN_TOBI			7				/*!< Klingel-Relais Tobi */
-#define IN_FRANZ		8				/*!< Klingel-Relais Franz */
-#define IN_KLINGEL		3				/*!< Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind */
+#define OUT_BLINKLED		9			/*!< Blinksignal-LED */
+#define OUT_TESTLED			10			/*!< Test-LED */
+#define OUT_TRELAIS			5			/*!< Relais für den Türsummer */
+#define OUT_RESET			13			/*!< Reset des Boards */
+#define IN_TIMM				2			/*!< Klingel-Relais Timm */
+#define IN_BOBBY			4			/*!< Klingel-Relais Bobby */
+#define IN_TILL				6			/*!< Klingel-Relais Till */
+#define IN_TOBI				7			/*!< Klingel-Relais Tobi */
+#define IN_FRANZ			8			/*!< Klingel-Relais Franz */
+#define IN_KLINGEL			3			/*!< Klingelsignal , MUSS 3 sein, da Arduino Interrupts beim Uno nur in PIN 2/3 vorhanden sind */
 /// @}
 
 //------------------------------------------------------------------------------

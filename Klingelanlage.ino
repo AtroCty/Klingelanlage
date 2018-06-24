@@ -32,7 +32,7 @@ volatile structTimer structTimings =
 ///
 void InteruptKlingeln()
 {
-	SetState( STATE_KLINGEL_PUSHED, &bytLastState, true );
+	SetState( STATE_KLINGEL_PUSHED, STATES_GENERIC, true );
 	detachInterrupt(IN_KLINGEL);
 	//### DEBUG
 	Serial.println(("RINgRING "));
@@ -92,16 +92,16 @@ void TimerControl(int intTimer, bool bStartStop)
 {
 	if (bStartStop)
 	{
-		if (bGetState(intTimer, &structTimings.bytState))
+		if (bGetState(intTimer, STATES_TIMER))
 		{
-			SetState(intTimer, &structTimings.bytState, true);
+			SetState(intTimer, STATES_TIMER, true);
 		}
 	}
 	else
 	{
-		if (!(bGetState(intTimer, &structTimings.bytState)))
+		if (!(bGetState(intTimer, STATES_TIMER)))
 		{
-			SetState(intTimer, &structTimings.bytState, false);
+			SetState(intTimer, STATES_TIMER, false);
 			long *p;
 			p = (long*) &structTimings;
 			*(p + ((long) intTimer)) = 0;
@@ -139,7 +139,7 @@ void UpdateTimings()
 	p = (long*) &structTimings;
 	for (i = 0; i >= 7; i++)
 	{
-		if ( bGetState( i, &structTimings.bytState ))
+		if ( bGetState( i, STATES_TIMER ))
 		{
 			*(p + ((long) i)) += u_lngUpdateTime;
 		}
@@ -153,11 +153,11 @@ void UpdateTimings()
 ///
 void CheckKlingel()
 {
-	if (bGetState( STATE_KLINGEL_PUSHED, &bytLastState))
+	if (bGetState( STATE_KLINGEL_PUSHED, STATES_GENERIC))
 	{
 		if (ENTPRELLDAUER < structTimings.u_lngEntpreller)
 		{
-			SetState(STATE_KLINGEL_ROUTINE, &bytLastState, true);
+			SetState(STATE_KLINGEL_ROUTINE, STATES_GENERIC, true);
 		}
 	}
 }
@@ -206,18 +206,18 @@ void loop()
 	Serial.print(structTimings.u_lngLeuchtdauer);
 	if ( bButtonPushed() )
 	{
-		if ( !bGetState(STATE_KLINGEL_PUSHED, &bytLastState) )
+		if ( !bGetState(STATE_KLINGEL_PUSHED, STATES_GENERIC) )
 		{
 			// Öffne Tür
 			digitalWrite( OUT_TRELAIS, LOW );
-			SetState(STATE_KLINGEL_PUSHED, &bytLastState, true);
+			SetState(STATE_KLINGEL_PUSHED, STATES_GENERIC, true);
 		}
 	}
-	else if (bGetState(STATE_KLINGEL_PUSHED, &bytLastState) )
+	else if (bGetState(STATE_KLINGEL_PUSHED, STATES_GENERIC) )
 	{
 		// Schließe Tür
 		digitalWrite( OUT_TRELAIS, HIGH );
-		SetState(STATE_KLINGEL_PUSHED, &bytLastState, false);
+		SetState(STATE_KLINGEL_PUSHED, STATES_GENERIC, false);
 	}
 	//----------------------------------------------------------------------
 	// #2 Synchronisation aller Timer.
