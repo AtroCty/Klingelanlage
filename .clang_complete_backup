@@ -1,3 +1,5 @@
+-IC:\MinGW\include
+-IC:\MinGW\include\stdint.h
 -Dprintf=iprintf
 -DF_CPU=84000000L
 -DARDUINO=156
@@ -12,3 +14,4 @@
 -IC:\Users\timms\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.6.21\variants\standard
 -IC:\Users\timms\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.6.21\cores\arduino
 -IE:\Dokumente\Arduino\libraries\SD\src
+-IC:\MinGW\
