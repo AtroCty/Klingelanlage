@@ -2,30 +2,27 @@
 /// @file Klingelanlage.h
 /// @mainpage Projekt Klingelanlage
 /// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
-///             Ausgabe an verschiedenen Blinkanlagen
+///             Ausgabe an verschiedenen Blinkanlagen.
 /// @author     Timm Schütte
 /// @author     Till Westphalen
-/// @version    2.0.2
-/// @date       14. Dezember 2017 - Entwurf
-/// @date       20. Juni 2018 - Update 2.0
+/// @version    2.0.3
+/// @date       24. Juni 2018 - Einführung Namenskonvention
 /// @date       21. Juni 2018 - Auslagerung in Header
-/// @section copyright_sec Copyright
+/// @date       20. Juni 2018 - Update 2.0
+/// @date       14. Dezember 2017 - Entwurf
 /// @copyright  GNU Public License. This program is free software; you can
 ///             redistribute it and/or modify it under the terms of the GNU
 ///             General Public License as published by the Free Software
 ///             Foundation; either version 2 of the License, or (at your option)
-///             any later version.
-///
-///             This program is distributed in the hope that it will be useful,
-///             but WITHOUT ANY WARRANTY; without even the implied warranty of
-///             MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///             GNU General Public License for more details.
-///
+///             any later version. This program is distributed in the hope that
+///             it will be useful, but WITHOUT ANY WARRANTY; without even the
+///             implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+///             PURPOSE.  See the GNU General Public License for more details.
 ///             You should have received a copy of the GNU General Public
 ///             License along with this program; if not, write to the Free
 ///             Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ///             Boston, MA 02110-1301, USA.
-/// @section naming_sec Namenskonvektion
+/// @section naming_sec Namenskonvention
 /// Typische Variablen-Namensgebungen:
 /// @subsection settings_subsec Eigenschaft
 /// Eigenschaft    	| Naming 		| Beispiel
@@ -47,6 +44,7 @@
 /// long			| lng			| lngLangeSachen
 /// short			| srt			| srtZehner
 /// struct			| struct		| structTimer
+///
 
 #ifndef KLINGELANLAGE_H
 #define KLINGELANLAGE_H
@@ -54,17 +52,23 @@
 #include <Arduino.h>
 
 //------------------------------------------------------------------------------
-/// @brief      Timer des Programmes
+/// @brief      Timer des Programmes.
+/// @note       Alle Timer müssen nacheinander stehen, von dem bytState! Maximal
+///             8 Timer!
+///
 typedef struct {
-	unsigned long u_lngLaufzeit;
-	unsigned long u_lngLeuchtdauer;
-	unsigned long u_lngEntpreller;
-	byte bytState;
+	unsigned long u_lngLaufzeit;		/*!< Gesamte Laufzeit */
+	unsigned long u_lngLeuchtdauer;		/*!< Dauer des Leuchtens */
+	unsigned long u_lngEntpreller;		/*!< Entprell-Buffer */
+	byte bytState;						/*!< Merker der aktiven Timer */
 } structTimer;
 
 extern volatile byte bytLastState;
 extern volatile structTimer structTimings;
 
+//------------------------------------------------------------------------------
+/// @brief      Startet eine Routine.
+///
 void StartRoutine();
 bool bGetState( int intPos, volatile byte *bytStates );
 void SetState( int intPos, volatile byte *bytStates, bool bState );

@@ -26,7 +26,10 @@ var menudata={children:[
 {text:"Module",url:"modules.html"},
 {text:"Datenstrukturen",url:"annotated.html",children:[
 {text:"Datenstrukturen",url:"annotated.html"},
-{text:"Datenstruktur-Verzeichnis",url:"classes.html"}]},
+{text:"Datenstruktur-Verzeichnis",url:"classes.html"},
+{text:"Datenstruktur-Elemente",url:"functions.html",children:[
+{text:"Alle",url:"functions.html"},
+{text:"Variablen",url:"functions_vars.html"}]}]},
 {text:"Dateien",url:"files.html",children:[
 {text:"Auflistung der Dateien",url:"files.html"},
 {text:"Globale Elemente",url:"globals.html",children:[

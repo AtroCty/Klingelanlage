@@ -1,20 +1,22 @@
 //------------------------------------------------------------------------------
 /// @file Klingelanlage.ino
 /// @brief      Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche
-///             Ausgabe an verschiedenen Blinkanlagen
+///             Ausgabe an verschiedenen Blinkanlagen.
 /// @author     Timm Schütte
 /// @author     Till Westphalen
-/// @version    2.0.2
+/// @version    2.0.3
+/// @date       24. Juni 2018 - Einführung Namenskonvention
+/// @date       21. Juni 2018 - Auslagerung in Header
+/// @date       20. Juni 2018 - Update 2.0
 /// @date       14. Dezember 2017 - Entwurf
-/// @date       20. Juni 2018 - Update
 /// @copyright  GNU Public License.
 
 #include "Klingelanlage.h"				/*!< Variablen-Deklarationen */
 
 //------------------------------------------------------------------------------
-/// @brief      Merker der verschiedenen States
+/// @brief      Merker der verschiedenen States.
 volatile byte bytLastState = 0;
-/// @brief      Timer des Programmes
+/// @brief      Timer des Programmes.
 volatile structTimer structTimings =
 {
 	.u_lngLaufzeit = 0,
@@ -25,7 +27,7 @@ volatile structTimer structTimings =
 
 //------------------------------------------------------------------------------
 /// @brief      Wenn Klingel betätigt wurde, setze die States, und unterbreche
-///             den Interrupt
+///             den Interrupt.
 ///
 void InteruptKlingeln()
 {
@@ -37,12 +39,12 @@ void InteruptKlingeln()
 }
 
 //------------------------------------------------------------------------------
-/// @brief      Untersucht den aktuellen State auf Gültigkeit
+/// @brief      Untersucht den aktuellen State auf Gültigkeit.
 ///
-/// @param[in]  intPos     Position des States. Siehe dazu Konstanten.
-/// @param      bytStates  Merker-Bytes
+/// @param      intPos     Position des States. Siehe dazu Konstanten.
+/// @param      bytStates  Merker-Bytes.
 ///
-/// @return     true falls aktiv, ansonsten false
+/// @return     @c true falls aktiv, ansonsten @c false.
 ///
 bool bGetState( int intPos, volatile byte *bytStates )
 {
@@ -50,11 +52,11 @@ bool bGetState( int intPos, volatile byte *bytStates )
 }
 
 //------------------------------------------------------------------------------
-/// @brief      Setzt den State nach belieben
+/// @brief      Setzt den State nach Belieben.
 ///
-/// @param[in]  intPos     Position des States. Siehe dazu Konstanten
-/// @param      bytStates  Merker-Bytes
-/// @param[in]  bState     Gewünschter State
+/// @param      intPos     Position des States. Siehe dazu Konstanten.
+/// @param      bytStates  Merker-Bytes.
+/// @param      bState     Gewünschter State.
 ///
 void SetState( int intPos, volatile byte *bytStates, bool bState )
 {
@@ -81,10 +83,10 @@ void StartRoutine()
 }
 
 //------------------------------------------------------------------------------
-/// @brief      Funktion zum Regeln der verschiedenen Timer
+/// @brief      Funktion zum Regeln der verschiedenen Timer.
 ///
-/// @param[in]  intTimer    Timer-ID (siehe Header)
-/// @param[in]  bStartStop  true für starten, false für Stop/Reset
+/// @param      intTimer    Timer-ID. (siehe Header)
+/// @param      bStartStop  @c true für starten, @c false für Stop/Reset.
 ///
 void TimerControl(int intTimer, bool bStartStop)
 {
@@ -111,7 +113,7 @@ void TimerControl(int intTimer, bool bStartStop)
 //------------------------------------------------------------------------------
 /// @brief      Wird gerade ein Öffner betätigt?
 ///
-/// @return     true falls ja, ansonsten false
+/// @return     @c true falls ja, ansonsten @c false.
 ///
 bool bButtonPushed()
 {
@@ -161,8 +163,7 @@ void CheckKlingel()
 
 
 //------------------------------------------------------------------------------
-/// Arduino Setup-Routine
-/// @brief      Setzen der PINS & Serieller Debugger
+/// @brief      Arduino Setup-Routine. Setzen der PINS & Serieller Debugger.
 ///
 void setup()
 {
@@ -178,12 +179,12 @@ void setup()
 	pinMode( IN_TOBI,		INPUT_PULLUP );
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
-	Serial.begin(115200);				/*!< für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
+	Serial.begin(115200);				/* für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
 	StartRoutine();
 }
 
 //------------------------------------------------------------------------------
-/// @brief      Main-Loop
+/// @brief      Main-Loop.
 ///
 void loop()
 {
@@ -211,9 +212,9 @@ void loop()
 		SetState(STATE_KLINGEL_PUSHED, &bytLastState, false);
 	}
 	//----------------------------------------------------------------------
-	// #2 Synchronisation aller Timer
+	// #2 Synchronisation aller Timer.
 	UpdateTimings();
 	//----------------------------------------------------------------------
-	// #3 Wurde Klingel betätigt? Checke Entprellung
+	// #3 Wurde Klingel betätigt? Checke Entprellung.
 	CheckKlingel();
 }
