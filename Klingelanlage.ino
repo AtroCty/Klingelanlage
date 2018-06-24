@@ -43,7 +43,7 @@ void InteruptKlingeln()
 /// @brief      Untersucht den aktuellen State auf Gültigkeit.
 ///
 /// @param      intPos     Position des States. Siehe dazu Konstanten.
-/// @param      bytStates  Merker-uint8_ts.
+/// @param      bytStates  Adresse der Merker-States.
 ///
 /// @return     @c true falls aktiv, ansonsten @c false.
 ///
@@ -56,7 +56,7 @@ bool bGetState( int intPos, volatile uint8_t *bytStates )
 /// @brief      Setzt den State nach Belieben.
 ///
 /// @param      intPos     Position des States. Siehe dazu Konstanten.
-/// @param      bytStates  Merker-uint8_ts.
+/// @param      bytStates  Adresse der Merker-States.
 /// @param      bState     Gewünschter State.
 ///
 void SetState( int intPos, volatile uint8_t *bytStates, bool bState )
@@ -80,7 +80,6 @@ void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
 	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), InteruptKlingeln, FALLING);
-	SetState( STATE_START, &bytLastState, true );
 }
 
 //------------------------------------------------------------------------------
@@ -156,8 +155,9 @@ void CheckKlingel()
 {
 	if (bGetState( STATE_KLINGEL_PUSHED, &bytLastState))
 	{
-		if (ENTPRELLDAUER > structTimings.u_lngEntpreller)
+		if (ENTPRELLDAUER < structTimings.u_lngEntpreller)
 		{
+			SetState(STATE_KLINGEL_ROUTINE, &bytLastState, true);
 		}
 	}
 }
@@ -181,7 +181,6 @@ void setup()
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
 	Serial.begin(19200);				/* für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
-	Serial.println(("Hallu :3 "));
 	StartRoutine();
 }
 
