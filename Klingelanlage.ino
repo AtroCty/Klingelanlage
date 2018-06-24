@@ -12,6 +12,7 @@
 /// @copyright  GNU Public License.
 
 #include "Klingelanlage.h"				/*!< Variablen-Deklarationen */
+#include <Arduino.h>
 
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States.
