@@ -112,12 +112,11 @@ void CheckKlingel();
 /// @defgroup   STATES State-Bits
 /// @{
 ///
-#define STATE_START				1		/*!< Startsequenz */
+#define STATE_KLINGEL_PUSHED	1		/*!< Klingel wurde betätigt */
 #define STATE_KLINGEL_ROUTINE	2		/*!< Klingel-Routine gestartet */
-#define STATE_KLINGEL_PUSHED	4		/*!< Klingel wurde betätigt */
-#define STATE_DOOR_OPEN			8		/*!< Wird gerade Tür geöffnet? */
-#define STATE_DENSITY_TOGGLE	16		/*!< Hell/Dunkler werden des Lichtes */
-#define STATE_DEBUG				32		/*!< TESTSTATE */
+#define STATE_DOOR_OPEN			4		/*!< Wird gerade Tür geöffnet? */
+#define STATE_DENSITY_TOGGLE	8		/*!< Hell/Dunkler werden des Lichtes */
+#define STATE_DEBUG				16		/*!< TESTSTATE */
 /// Timer States
 #define TIMER_LEUCHTDAUER		1		/*!< Leuchtdauer */
 #define TIMER_ENTPRELLER		2		/*!< Entpreller */

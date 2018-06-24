@@ -74,6 +74,7 @@ $(function() {
 <p>Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche Ausgabe an verschiedenen Blinkanlagen.  
 <a href="#details">Mehr ...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="_klingelanlage_8h_source.html">Klingelanlage.h</a>&quot;</code><br />
+<code>#include &lt;Arduino.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funktionen</h2></td></tr>
@@ -81,12 +82,12 @@ Funktionen</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ac3d72a0eacdb4e8d25ec34a62816064b">InteruptKlingeln</a> ()</td></tr>
 <tr class="memdesc:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt. <br /></td></tr>
 <tr class="separator:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9791241d77b215334a4f7c68f7bc279"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ad9791241d77b215334a4f7c68f7bc279">bGetState</a> (int intPos, volatile byte *bytStates)</td></tr>
-<tr class="memdesc:ad9791241d77b215334a4f7c68f7bc279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Untersucht den aktuellen State auf Gültigkeit.  <a href="#ad9791241d77b215334a4f7c68f7bc279">Mehr ...</a><br /></td></tr>
-<tr class="separator:ad9791241d77b215334a4f7c68f7bc279"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac81ade0a420b16d20183becce50d21bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ac81ade0a420b16d20183becce50d21bf">SetState</a> (int intPos, volatile byte *bytStates, bool bState)</td></tr>
-<tr class="memdesc:ac81ade0a420b16d20183becce50d21bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setzt den State nach Belieben.  <a href="#ac81ade0a420b16d20183becce50d21bf">Mehr ...</a><br /></td></tr>
-<tr class="separator:ac81ade0a420b16d20183becce50d21bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0ccd23890c8fe636a2274ba18b1799f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ad0ccd23890c8fe636a2274ba18b1799f">bGetState</a> (int intPos, volatile uint8_t *bytStates)</td></tr>
+<tr class="memdesc:ad0ccd23890c8fe636a2274ba18b1799f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Untersucht den aktuellen State auf Gültigkeit.  <a href="#ad0ccd23890c8fe636a2274ba18b1799f">Mehr ...</a><br /></td></tr>
+<tr class="separator:ad0ccd23890c8fe636a2274ba18b1799f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af41953bf84b29e0c1085344c6ef52c13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#af41953bf84b29e0c1085344c6ef52c13">SetState</a> (int intPos, volatile uint8_t *bytStates, bool bState)</td></tr>
+<tr class="memdesc:af41953bf84b29e0c1085344c6ef52c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setzt den State nach Belieben.  <a href="#af41953bf84b29e0c1085344c6ef52c13">Mehr ...</a><br /></td></tr>
+<tr class="separator:af41953bf84b29e0c1085344c6ef52c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a943cc12e9c135d390d4c6853fe3296f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a943cc12e9c135d390d4c6853fe3296f9">StartRoutine</a> ()</td></tr>
 <tr class="memdesc:a943cc12e9c135d390d4c6853fe3296f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Anfangsroutine bei Start des Programmes Startet den Interrrupt und deaktiviert das Relais.  <a href="#a943cc12e9c135d390d4c6853fe3296f9">Mehr ...</a><br /></td></tr>
 <tr class="separator:a943cc12e9c135d390d4c6853fe3296f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,10 +116,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kli
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variablen</h2></td></tr>
-<tr class="memitem:a184b4b218665c323f9bda1e8f4ecbc19"><td class="memItemLeft" align="right" valign="top"><a id="a184b4b218665c323f9bda1e8f4ecbc19"></a>
-volatile byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a184b4b218665c323f9bda1e8f4ecbc19">bytLastState</a> = 0</td></tr>
-<tr class="memdesc:a184b4b218665c323f9bda1e8f4ecbc19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merker der verschiedenen States. <br /></td></tr>
-<tr class="separator:a184b4b218665c323f9bda1e8f4ecbc19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab585c57aea3a2750a085232d196c9274"><td class="memItemLeft" align="right" valign="top"><a id="ab585c57aea3a2750a085232d196c9274"></a>
+volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ab585c57aea3a2750a085232d196c9274">bytLastState</a> = 0</td></tr>
+<tr class="memdesc:ab585c57aea3a2750a085232d196c9274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merker der verschiedenen States. <br /></td></tr>
+<tr class="separator:ab585c57aea3a2750a085232d196c9274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7e3d6f970debd821fc6a8053c48256b"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structstruct_timer.html">structTimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#aa7e3d6f970debd821fc6a8053c48256b">structTimings</a></td></tr>
 <tr class="memdesc:aa7e3d6f970debd821fc6a8053c48256b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer des Programmes.  <a href="#aa7e3d6f970debd821fc6a8053c48256b">Mehr ...</a><br /></td></tr>
 <tr class="separator:aa7e3d6f970debd821fc6a8053c48256b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,8 +159,8 @@ Till Westphalen </dd></dl>
 
 </div>
 </div>
-<a id="ad9791241d77b215334a4f7c68f7bc279"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9791241d77b215334a4f7c68f7bc279">&#9670;&nbsp;</a></span>bGetState()</h2>
+<a id="ad0ccd23890c8fe636a2274ba18b1799f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0ccd23890c8fe636a2274ba18b1799f">&#9670;&nbsp;</a></span>bGetState()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,7 +174,7 @@ Till Westphalen </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">volatile byte *&#160;</td>
+          <td class="paramtype">volatile uint8_t *&#160;</td>
           <td class="paramname"><em>bytStates</em>&#160;</td>
         </tr>
         <tr>
@@ -188,7 +189,7 @@ Till Westphalen </dd></dl>
 <dl class="params"><dt>Parameter</dt><dd>
   <table class="params">
     <tr><td class="paramname">intPos</td><td>Position des States. Siehe dazu Konstanten. </td></tr>
-    <tr><td class="paramname">bytStates</td><td>Merker-Bytes.</td></tr>
+    <tr><td class="paramname">bytStates</td><td>Merker-uint8_ts.</td></tr>
   </table>
   </dd>
 </dl>
@@ -196,8 +197,8 @@ Till Westphalen </dd></dl>
 
 </div>
 </div>
-<a id="ac81ade0a420b16d20183becce50d21bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac81ade0a420b16d20183becce50d21bf">&#9670;&nbsp;</a></span>SetState()</h2>
+<a id="af41953bf84b29e0c1085344c6ef52c13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af41953bf84b29e0c1085344c6ef52c13">&#9670;&nbsp;</a></span>SetState()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +212,7 @@ Till Westphalen </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">volatile byte *&#160;</td>
+          <td class="paramtype">volatile uint8_t *&#160;</td>
           <td class="paramname"><em>bytStates</em>, </td>
         </tr>
         <tr>
@@ -232,7 +233,7 @@ Till Westphalen </dd></dl>
 <dl class="params"><dt>Parameter</dt><dd>
   <table class="params">
     <tr><td class="paramname">intPos</td><td>Position des States. Siehe dazu Konstanten. </td></tr>
-    <tr><td class="paramname">bytStates</td><td>Merker-Bytes. </td></tr>
+    <tr><td class="paramname">bytStates</td><td>Merker-uint8_ts. </td></tr>
     <tr><td class="paramname">bState</td><td>Gewünschter State. </td></tr>
   </table>
   </dd>

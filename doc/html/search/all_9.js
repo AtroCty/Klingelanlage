@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['setstate',['SetState',['../_klingelanlage_8ino.html#ac81ade0a420b16d20183becce50d21bf',1,'SetState(int intPos, volatile byte *bytStates, bool bState):&#160;Klingelanlage.ino'],['../_klingelanlage_8h.html#ac81ade0a420b16d20183becce50d21bf',1,'SetState(int intPos, volatile byte *bytStates, bool bState):&#160;Klingelanlage.ino']]],
+  ['setstate',['SetState',['../_klingelanlage_8ino.html#af41953bf84b29e0c1085344c6ef52c13',1,'SetState(int intPos, volatile uint8_t *bytStates, bool bState):&#160;Klingelanlage.ino'],['../_klingelanlage_8h.html#af41953bf84b29e0c1085344c6ef52c13',1,'SetState(int intPos, volatile uint8_t *bytStates, bool bState):&#160;Klingelanlage.ino']]],
   ['setup',['setup',['../_klingelanlage_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'Klingelanlage.ino']]],
   ['slowrate',['SLOWRATE',['../group___s_p_e_e_d.html#ga374d640f02715e7a5be988ab66282049',1,'Klingelanlage.h']]],
   ['speed',['SPEED',['../group___s_p_e_e_d.html#gaac3553b3932cbfeeac4526ce7ca0336b',1,'Klingelanlage.h']]],

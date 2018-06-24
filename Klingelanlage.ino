@@ -180,7 +180,8 @@ void setup()
 	pinMode( IN_TOBI,		INPUT_PULLUP );
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
-	Serial.begin(115200);				/* für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
+	Serial.begin(19200);				/* für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
+	Serial.println(("Hallu :3 "));
 	StartRoutine();
 }
 
@@ -197,6 +198,13 @@ void loop()
 	// }
 	//----------------------------------------------------------------------
 	// #1 Button-Check, und Tueroeffnungsroutine. Hoechste Prioritaet.
+	//   Serial.write(27);
+	Serial.print("\nTimer Laufzeit: ");
+	Serial.print(structTimings.u_lngLaufzeit);
+	Serial.print("\nTimer Entpreller: ");
+	Serial.print(structTimings.u_lngEntpreller);
+	Serial.print("\nTimer Leuchtdauer: ");
+	Serial.print(structTimings.u_lngLeuchtdauer);
 	if ( bButtonPushed() )
 	{
 		if ( !bGetState(STATE_KLINGEL_PUSHED, &bytLastState) )
