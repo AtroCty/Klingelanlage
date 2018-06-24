@@ -1,0 +1,16 @@
+Determining if the C compiler works failed with the following output:
+Change Dir: E:/Coding/Klingelanlage/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"nmake" "/NOLOGO" "cmTC_9535f\fast"
+Das System kann die angegebene Datei nicht finden
+Generator: execution of make failed. Make command was: "nmake" "/NOLOGO" "cmTC_9535f\fast"
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: E:/Coding/Klingelanlage/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"nmake" "/NOLOGO" "cmTC_e73e2\fast"
+Das System kann die angegebene Datei nicht finden
+Generator: execution of make failed. Make command was: "nmake" "/NOLOGO" "cmTC_e73e2\fast"
+
+
