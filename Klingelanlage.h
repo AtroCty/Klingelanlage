@@ -36,7 +36,7 @@
 /// -------------	| -------------	| -------------
 /// String  		| str			| strInputEncoder
 /// bool			| b				| bSchalter
-/// byte			| byt			| bytStates
+/// byte (uint8_t)	| byt			| bytStates
 /// char			| chr			| chrBuchstabe
 /// double			| dbl			| dblLangeVariable
 /// float			| flt			| fltFliessend
@@ -60,18 +60,18 @@ typedef struct {
 	unsigned long u_lngLaufzeit;		/*!< Gesamte Laufzeit */
 	unsigned long u_lngLeuchtdauer;		/*!< Dauer des Leuchtens */
 	unsigned long u_lngEntpreller;		/*!< Entprell-Buffer */
-	byte bytState;						/*!< Merker der aktiven Timer */
+	uint8_t bytState;					/*!< Merker der aktiven Timer */
 } structTimer;
 
-extern volatile byte bytLastState;
+extern volatile uint8_t bytLastState;
 extern volatile structTimer structTimings;
 
 //------------------------------------------------------------------------------
 /// @brief      Startet eine Routine.
 ///
 void StartRoutine();
-bool bGetState( int intPos, volatile byte *bytStates );
-void SetState( int intPos, volatile byte *bytStates, bool bState );
+bool bGetState( int intPos, volatile uint8_t *bytStates );
+void SetState( int intPos, volatile uint8_t *bytStates, bool bState );
 void InteruptKlingeln();
 void TimerControl(int intTimer, bool bStartStop);
 bool bButtonPushed();

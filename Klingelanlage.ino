@@ -15,7 +15,7 @@
 
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States.
-volatile byte bytLastState = 0;
+volatile uint8_t bytLastState = 0;
 /// @brief      Timer des Programmes.
 volatile structTimer structTimings =
 {
@@ -42,11 +42,11 @@ void InteruptKlingeln()
 /// @brief      Untersucht den aktuellen State auf Gültigkeit.
 ///
 /// @param      intPos     Position des States. Siehe dazu Konstanten.
-/// @param      bytStates  Merker-Bytes.
+/// @param      bytStates  Merker-uint8_ts.
 ///
 /// @return     @c true falls aktiv, ansonsten @c false.
 ///
-bool bGetState( int intPos, volatile byte *bytStates )
+bool bGetState( int intPos, volatile uint8_t *bytStates )
 {
 	return bitRead( *bytStates, intPos );
 }
@@ -55,10 +55,10 @@ bool bGetState( int intPos, volatile byte *bytStates )
 /// @brief      Setzt den State nach Belieben.
 ///
 /// @param      intPos     Position des States. Siehe dazu Konstanten.
-/// @param      bytStates  Merker-Bytes.
+/// @param      bytStates  Merker-uint8_ts.
 /// @param      bState     Gewünschter State.
 ///
-void SetState( int intPos, volatile byte *bytStates, bool bState )
+void SetState( int intPos, volatile uint8_t *bytStates, bool bState )
 {
 	if (bState)
 	{
