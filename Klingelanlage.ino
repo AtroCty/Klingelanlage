@@ -32,7 +32,7 @@ volatile structTimer structTimings =
 ///
 void InteruptKlingeln()
 {
-	SetState( STATE_KLINGEL_PUSHED, STATES_GENERIC, true );
+	SetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC, true );
 	detachInterrupt(IN_KLINGEL);
 	//### DEBUG
 	Serial.println(("RINgRING "));
@@ -43,7 +43,7 @@ void InteruptKlingeln()
 /// @brief      Untersucht den aktuellen State auf Gültigkeit.
 ///
 /// @param      intPos     Position des States. Siehe dazu Konstanten.
-/// @param      bytStates  Adresse der Merker-States.
+/// @param      bytStates  Adresse der Merker-States. (Siehe ADRESS_STATES_)
 ///
 /// @return     @c true falls aktiv, ansonsten @c false.
 ///
@@ -56,7 +56,7 @@ bool bGetState( int intPos, volatile uint8_t *bytStates )
 /// @brief      Setzt den State nach Belieben.
 ///
 /// @param      intPos     Position des States. Siehe dazu Konstanten.
-/// @param      bytStates  Adresse der Merker-States.
+/// @param      bytStates  Adresse der Merker-States. (Siehe ADRESS_STATES_)
 /// @param      bState     Gewünschter State.
 ///
 void SetState( int intPos, volatile uint8_t *bytStates, bool bState )
@@ -92,16 +92,16 @@ void TimerControl(int intTimer, bool bStartStop)
 {
 	if (bStartStop)
 	{
-		if (bGetState(intTimer, STATES_TIMER))
+		if (bGetState(intTimer, ADRESS_STATES_TIMER))
 		{
-			SetState(intTimer, STATES_TIMER, true);
+			SetState(intTimer, ADRESS_STATES_TIMER, true);
 		}
 	}
 	else
 	{
-		if (!(bGetState(intTimer, STATES_TIMER)))
+		if (!(bGetState(intTimer, ADRESS_STATES_TIMER)))
 		{
-			SetState(intTimer, STATES_TIMER, false);
+			SetState(intTimer, ADRESS_STATES_TIMER, false);
 			long *p;
 			p = (long*) &structTimings;
 			*(p + ((long) intTimer)) = 0;
@@ -139,7 +139,7 @@ void UpdateTimings()
 	p = (long*) &structTimings;
 	for (i = 0; i >= 7; i++)
 	{
-		if ( bGetState( i, STATES_TIMER ))
+		if ( bGetState( i, ADRESS_STATES_TIMER ))
 		{
 			*(p + ((long) i)) += u_lngUpdateTime;
 		}
@@ -153,11 +153,11 @@ void UpdateTimings()
 ///
 void CheckKlingel()
 {
-	if (bGetState( STATE_KLINGEL_PUSHED, STATES_GENERIC))
+	if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC))
 	{
 		if (ENTPRELLDAUER < structTimings.u_lngEntpreller)
 		{
-			SetState(STATE_KLINGEL_ROUTINE, STATES_GENERIC, true);
+			SetState(STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC, true);
 		}
 	}
 }
@@ -189,15 +189,9 @@ void setup()
 ///
 void loop()
 {
-	// //-----------------------------------------------------------------------------
-	// // #0 Start-Routine, wird nur einmal ausgeführt.
-	// if ( !bGetState( STATE_START ))
-	// {
-	// 	StartRoutine();
-	// }
-	//----------------------------------------------------------------------
-	// #1 Button-Check, und Tueroeffnungsroutine. Hoechste Prioritaet.
-	//   Serial.write(27);
+	///////////////////////////////////////////////////////////////////////////////
+	///  #1 Button-Check, und Tueroeffnungsroutine. Hoechste Prioritaet.        ///
+	///////////////////////////////////////////////////////////////////////////////
 	Serial.print("\nTimer Laufzeit: ");
 	Serial.print(structTimings.u_lngLaufzeit);
 	Serial.print("\nTimer Entpreller: ");
@@ -206,18 +200,18 @@ void loop()
 	Serial.print(structTimings.u_lngLeuchtdauer);
 	if ( bButtonPushed() )
 	{
-		if ( !bGetState(STATE_KLINGEL_PUSHED, STATES_GENERIC) )
+		if ( !bGetState(STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC) )
 		{
 			// Öffne Tür
 			digitalWrite( OUT_TRELAIS, LOW );
-			SetState(STATE_KLINGEL_PUSHED, STATES_GENERIC, true);
+			SetState(STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC, true);
 		}
 	}
-	else if (bGetState(STATE_KLINGEL_PUSHED, STATES_GENERIC) )
+	else if (bGetState(STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC) )
 	{
 		// Schließe Tür
 		digitalWrite( OUT_TRELAIS, HIGH );
-		SetState(STATE_KLINGEL_PUSHED, STATES_GENERIC, false);
+		SetState(STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC, false);
 	}
 	//----------------------------------------------------------------------
 	// #2 Synchronisation aller Timer.

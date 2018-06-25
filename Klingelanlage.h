@@ -50,7 +50,6 @@
 #define KLINGELANLAGE_H
 
 #include <Arduino.h>
-#include <HardwareSerial.h>
 
 //------------------------------------------------------------------------------
 /// @brief      Timer des Programmes.
@@ -65,9 +64,9 @@ typedef struct {
 } structTimer;
 
 extern volatile uint8_t bytLastState;
-#define STATES_GENERIC 		&bytLastState
+#define ADRESS_STATES_GENERIC 		&bytLastState
 extern volatile structTimer structTimings;
-#define STATES_TIMER 		&structTimings.bytState
+#define ADRESS_STATES_TIMER 		&structTimings.bytState
 
 //------------------------------------------------------------------------------
 /// @brief      Startet eine Routine.
