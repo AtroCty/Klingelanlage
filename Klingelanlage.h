@@ -121,8 +121,8 @@ extern void CheckKlingel();
 #define STATE_DENSITY_TOGGLE	8		/*!< Hell/Dunkler werden des Lichtes */
 #define STATE_DEBUG				16		/*!< TESTSTATE */
 /// Timer States
-#define TIMER_LEUCHTDAUER		1		/*!< Leuchtdauer */
-#define TIMER_ENTPRELLER		2		/*!< Entpreller */
+#define STATE_TIMER_LEUCHTDAUER	1		/*!< Leuchtdauer */
+#define STATE_TIMER_ENTPRELLER	2		/*!< Entpreller */
 /// @}
 
 #endif

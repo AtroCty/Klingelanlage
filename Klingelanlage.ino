@@ -12,7 +12,7 @@
 /// @copyright  GNU Public License.
 
 #include "Klingelanlage.h"				/*!< Variablen-Deklarationen */
-#include <Arduino.h>
+#include <Arduino.h>					/*!< Nur für Clang-Completion, wird eh immer eingebunden */
 
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States.
@@ -153,7 +153,18 @@ void UpdateTimings()
 ///
 void CheckKlingel()
 {
-	if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC))
+	if (bGetState(STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC))
+	{
+		if (bGetState(STATE_TIMER_LEUCHTDAUER, ADRESS_STATES_TIMER))
+		{
+			/* code */
+		}
+		else
+		{
+
+		}
+	}
+	else if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC))
 	{
 		if (ENTPRELLDAUER < structTimings.u_lngEntpreller)
 		{
@@ -180,7 +191,7 @@ void setup()
 	pinMode( IN_TOBI,		INPUT_PULLUP );
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
-	Serial.begin(19200);				/* für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
+	Serial.begin(115200);				/* für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
 	StartRoutine();
 }
 
