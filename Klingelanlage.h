@@ -80,7 +80,8 @@ extern void InteruptKlingeln();
 extern void TimerControl(int intTimer, bool bStartStop);
 extern bool bButtonPushed();
 extern void UpdateTimings();
-extern void CheckKlingel();
+extern void KlingelRoutine();
+extern void ResetRoutine();
 
 ///=============================================================================
 /// Konstanten & Makros
@@ -105,10 +106,10 @@ extern void CheckKlingel();
 /// @defgroup   SPEED Geschwindigkeiten
 /// @{
 ///
-#define LEUCHTDAUER		10000.0			/*!< in Milli-Sekunden */
-#define ENTPRELLDAUER	200.0			/*!< in Milli-Sekunden */
-#define SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
-#define SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
+#define CONST_LEUCHTDAUER	10000.0			/*!< in Milli-Sekunden */
+#define CONST_ENTPRELLDAUER	200.0			/*!< in Milli-Sekunden */
+#define CONST_SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
+#define CONST_SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
 /// @}
 
 //------------------------------------------------------------------------------

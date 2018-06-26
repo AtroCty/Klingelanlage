@@ -79,7 +79,7 @@ void SetState( int intPos, volatile uint8_t *bytStates, bool bState )
 void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
-	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), InteruptKlingeln, FALLING);
+	ResetRoutine();
 }
 
 //------------------------------------------------------------------------------
@@ -151,28 +151,43 @@ void UpdateTimings()
 /// @brief      Überprüft, ob Klingel betätigt wurde, und Entprellzeiten
 ///             eingehalten wurde
 ///
-void CheckKlingel()
+void KlingelRoutine()
 {
 	if (bGetState(STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC))
 	{
 		if (bGetState(STATE_TIMER_LEUCHTDAUER, ADRESS_STATES_TIMER))
 		{
-			/* code */
+			if (structTimings.u_lngLeuchtdauer >= CONST_LEUCHTDAUER)
+			{
+				ResetRoutine();
+			}
 		}
 		else
 		{
-
+			SetState( STATE_TIMER_LEUCHTDAUER, ADRESS_STATES_TIMER, true );
+			digitalWrite( OUT_TRELAIS, LOW );
 		}
 	}
 	else if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC))
 	{
-		if (ENTPRELLDAUER < structTimings.u_lngEntpreller)
+		if (CONST_ENTPRELLDAUER < structTimings.u_lngEntpreller)
 		{
-			SetState(STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC, true);
+			SetState( STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC, true );
 		}
 	}
 }
 
+//------------------------------------------------------------------------------
+/// @brief      Reset der Routine & Timer
+///
+void ResetRoutine()
+{
+	SetState( STATE_TIMER_LEUCHTDAUER, ADRESS_STATES_TIMER, false );
+	SetState( STATE_TIMER_ENTPRELLER, ADRESS_STATES_TIMER, false );
+	structTimings.u_lngLeuchtdauer = 0;
+	structTimings.u_lngEntpreller = 0;
+	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), InteruptKlingeln, FALLING);
+}
 
 //------------------------------------------------------------------------------
 /// @brief      Arduino Setup-Routine. Setzen der PINS & Serieller Debugger.
@@ -228,6 +243,6 @@ void loop()
 	// #2 Synchronisation aller Timer.
 	UpdateTimings();
 	//----------------------------------------------------------------------
-	// #3 Wurde Klingel betätigt? Checke Entprellung.
-	CheckKlingel();
+	// #3 Klingel-Routine
+	KlingelRoutine();
 }
