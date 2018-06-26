@@ -68,17 +68,19 @@ extern volatile uint8_t bytLastState;
 extern volatile structTimer structTimings;
 #define ADRESS_STATES_TIMER 		&structTimings.bytState
 
-//------------------------------------------------------------------------------
-/// @brief      Startet eine Routine.
+
+///=============================================================================
+/// Funktionsprototypen
+///-----------------------------------------------------------------------------
 ///
-void StartRoutine();
-bool bGetState( int intPos, volatile uint8_t *bytStates );
-void SetState( int intPos, volatile uint8_t *bytStates, bool bState );
-void InteruptKlingeln();
-void TimerControl(int intTimer, bool bStartStop);
-bool bButtonPushed();
-void UpdateTimings();
-void CheckKlingel();
+extern void StartRoutine();
+extern bool bGetState( int intPos, volatile uint8_t *bytStates );
+extern void SetState( int intPos, volatile uint8_t *bytStates, bool bState );
+extern void InteruptKlingeln();
+extern void TimerControl(int intTimer, bool bStartStop);
+extern bool bButtonPushed();
+extern void UpdateTimings();
+extern void CheckKlingel();
 
 ///=============================================================================
 /// Konstanten & Makros
