@@ -35,7 +35,7 @@ void InteruptKlingeln()
 	SetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC, true );
 	detachInterrupt(IN_KLINGEL);
 	//### DEBUG
-	Serial.println(("RINgRING "));
+	Serial.println(("RINgRING"));
 	//###
 }
 
@@ -153,9 +153,9 @@ void UpdateTimings()
 ///
 void KlingelRoutine()
 {
-	if (bGetState(STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC))
+	if (bGetState( STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC ))
 	{
-		if (bGetState(STATE_TIMER_LEUCHTDAUER, ADRESS_STATES_TIMER))
+		if (bGetState( STATE_TIMER_LEUCHTDAUER, ADRESS_STATES_TIMER ))
 		{
 			if (structTimings.u_lngLeuchtdauer >= CONST_LEUCHTDAUER)
 			{
@@ -168,11 +168,15 @@ void KlingelRoutine()
 			digitalWrite( OUT_TRELAIS, LOW );
 		}
 	}
-	else if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC))
+	else if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC ))
 	{
-		if (CONST_ENTPRELLDAUER < structTimings.u_lngEntpreller)
+		if (( CONST_ENTPRELLDAUER < structTimings.u_lngEntpreller ) && ( digitalRead(IN_KLINGEL)) )
 		{
 			SetState( STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC, true );
+		}
+		else
+		{
+			ResetRoutine();
 		}
 	}
 }
@@ -184,6 +188,8 @@ void ResetRoutine()
 {
 	SetState( STATE_TIMER_LEUCHTDAUER, ADRESS_STATES_TIMER, false );
 	SetState( STATE_TIMER_ENTPRELLER, ADRESS_STATES_TIMER, false );
+	SetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC, false );
+	SetState( STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC, false );
 	structTimings.u_lngLeuchtdauer = 0;
 	structTimings.u_lngEntpreller = 0;
 	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), InteruptKlingeln, FALLING);
