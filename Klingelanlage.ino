@@ -195,6 +195,18 @@ void ResetRoutine()
 	attachInterrupt(digitalPinToInterrupt(IN_KLINGEL), InteruptKlingeln, FALLING);
 }
 
+
+//------------------------------------------------------------------------------
+/// @brief      Leucht-Routine
+///
+void LeuchtRoutine()
+{
+	if ( bButtonPushed() )
+	{
+
+	}
+}
+
 //------------------------------------------------------------------------------
 /// @brief      Arduino Setup-Routine. Setzen der PINS & Serieller Debugger.
 ///
@@ -251,4 +263,6 @@ void loop()
 	//----------------------------------------------------------------------
 	// #3 Klingel-Routine
 	KlingelRoutine();
+	// #4 Leucht-Routine
+	LeuchtRoutine();
 }

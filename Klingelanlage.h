@@ -53,10 +53,11 @@
 
 //------------------------------------------------------------------------------
 /// @brief      Timer des Programmes.
-/// @note       Alle Timer müssen nacheinander stehen, von dem bytState! Maximal
+/// @note       Alle Timer müssen nacheinander stehen, vor dem bytState! Maximal
 ///             8 Timer!
 ///
-typedef struct {
+typedef struct
+{
 	unsigned long u_lngLaufzeit;		/*!< Gesamte Laufzeit */
 	unsigned long u_lngLeuchtdauer;		/*!< Dauer des Leuchtens */
 	unsigned long u_lngEntpreller;		/*!< Entprell-Buffer */
@@ -81,6 +82,7 @@ extern void TimerControl(int intTimer, bool bStartStop);
 extern bool bButtonPushed();
 extern void UpdateTimings();
 extern void KlingelRoutine();
+extern void LeuchtRoutine();
 extern void ResetRoutine();
 
 ///=============================================================================
@@ -106,10 +108,12 @@ extern void ResetRoutine();
 /// @defgroup   SPEED Geschwindigkeiten
 /// @{
 ///
-#define CONST_LEUCHTDAUER	10000.0			/*!< in Milli-Sekunden */
-#define CONST_ENTPRELLDAUER	200.0			/*!< in Milli-Sekunden */
-#define CONST_SPEED			1.0				/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
-#define CONST_SLOWRATE		0.1				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste NICHT gedrückt */
+#define CONST_LEUCHTDAUER		10000.0			/*!< in Milli-Sekunden */
+#define CONST_ENTPRELLDAUER		200.0			/*!< in Milli-Sekunden */
+#define CONST_LEUCHTFREQUENZ	1000.0			/*!< Geschwindigkeit des Blinkes wenn Taste nicht gedrückt (Je höher desto langsamer) */
+#define CONST_LEUCHT_MULT		0.3				/*!< Multiplikator der Geschwindigkeit des Blinkes wenn Taste gedrückt */
+#define CONST_MIN_ANALOG		40
+#define CONST_MAX_ANALOG		255
 /// @}
 
 //------------------------------------------------------------------------------
@@ -119,7 +123,7 @@ extern void ResetRoutine();
 #define STATE_KLINGEL_PUSHED	1		/*!< Klingel wurde betätigt */
 #define STATE_KLINGEL_ROUTINE	2		/*!< Klingel-Routine gestartet */
 #define STATE_DOOR_OPEN			4		/*!< Wird gerade Tür geöffnet? */
-#define STATE_DENSITY_TOGGLE	8		/*!< Hell/Dunkler werden des Lichtes */
+#define STATE_LIGHT				8		/*!< Leuchten die Lampen? */
 #define STATE_DEBUG				16		/*!< TESTSTATE */
 /// Timer States
 #define STATE_TIMER_LEUCHTDAUER	1		/*!< Leuchtdauer */
