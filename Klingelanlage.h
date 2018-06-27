@@ -83,6 +83,7 @@ extern bool bButtonPushed();
 extern void UpdateTimings();
 extern void KlingelRoutine();
 extern void LeuchtRoutine();
+extern uint8_t LeuchtRoutine();
 extern void ResetRoutine();
 
 ///=============================================================================

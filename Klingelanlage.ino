@@ -13,6 +13,7 @@
 
 #include "Klingelanlage.h"				/*!< Variablen-Deklarationen */
 #include <Arduino.h>					/*!< Nur für Clang-Completion, wird eh immer eingebunden */
+#include <math.h>
 
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States.
@@ -203,8 +204,28 @@ void LeuchtRoutine()
 {
 	if ( bButtonPushed() )
 	{
-
+		
 	}
+}
+
+//------------------------------------------------------------------------------
+/// @brief      Konvertiert in die korrekte analoge Variante
+///
+/// @return     Wert zwischen 0-255
+///
+uint8_t intAnalogValue(float fltSpeed)
+{
+	int intRange = CONST_MAX_ANALOG - CONST_MIN_ANALOG;
+	float buffer = fmod(structTimings.u_lngLeuchtdauer, fltSpeed) / fltSpeed;
+	if (buffer < 0.5)
+	{
+		buffer = (buffer * intRange);
+	}
+	else
+	{
+		buffer = (1 - buffer) * intRange;
+	}
+	return (int) (CONST_MIN_ANALOG + buffer);
 }
 
 //------------------------------------------------------------------------------
