@@ -204,8 +204,19 @@ void LeuchtRoutine()
 {
 	if ( bButtonPushed() )
 	{
-		
+		analogWrite( OUT_BLINKLED, intAnalogValue(CONST_LEUCHTFREQUENZ * CONST_LEUCHT_MULT) );
+		analogWrite( OUT_TESTLED, intAnalogValue(CONST_LEUCHTFREQUENZ * CONST_LEUCHT_MULT) );
+		return;
 	}
+	else if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC ))
+	{
+		analogWrite( OUT_BLINKLED, intAnalogValue(CONST_LEUCHTFREQUENZ) );
+		analogWrite( OUT_TESTLED, intAnalogValue(CONST_LEUCHTFREQUENZ) );
+		return;
+	}
+	digitalWrite( OUT_BLINKLED, LOW );
+	digitalWrite( OUT_TESTLED, LOW );
+	return;
 }
 
 //------------------------------------------------------------------------------
