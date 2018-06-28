@@ -4,7 +4,8 @@
 ///             Ausgabe an verschiedenen Blinkanlagen.
 /// @author     Timm Schütte
 /// @author     Till Westphalen
-/// @version    2.0.3
+/// @version    2.0.4
+/// @date       27. Juni 2018 - Entfernen des Interrupts
 /// @date       24. Juni 2018 - Einführung Namenskonvention
 /// @date       21. Juni 2018 - Auslagerung in Header
 /// @date       20. Juni 2018 - Update 2.0
@@ -27,18 +28,13 @@ volatile structTimer structTimings =
 	.bytState = 0,
 };
 
+void(* ResetFunc) (void) = 0;
+
 //------------------------------------------------------------------------------
 /// @brief      Wenn Klingel betätigt wurde, setze die States, und unterbreche
 ///             den Interrupt.
 ///
-void InteruptKlingeln()
-{
-	SetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC, true );
-	detachInterrupt(IN_KLINGEL);
-	//### DEBUG
-	Serial.println(("RINgRING"));
-	//###
-}
+
 
 //------------------------------------------------------------------------------
 /// @brief      Untersucht den aktuellen State auf Gültigkeit.
@@ -80,6 +76,7 @@ void SetState( int intPos, volatile uint8_t *bytStates, bool bState )
 void StartRoutine()
 {
 	digitalWrite( OUT_TRELAIS, HIGH );
+	Serial.println("NEUSTART");
 	ResetRoutine();
 }
 
@@ -98,7 +95,7 @@ void TimerControl(int intTimer, bool bStartStop)
 			SetState(intTimer, ADRESS_STATES_TIMER, true);
 		}
 	}
-	else
+7	else
 	{
 		if (!(bGetState(intTimer, ADRESS_STATES_TIMER)))
 		{
@@ -127,9 +124,9 @@ bool bButtonPushed()
 void UpdateTimings()
 {
 	// Bei Überlauf (alle paar Tage) Board resetten
-	if ( millis() > 0xFFAF )
+	if ( millis() > 0xFFA0 )
 	{
-		digitalWrite( OUT_RESET, LOW );
+		ResetFunc();
 	}
 	unsigned long u_lngUpdateTime;
 	u_lngUpdateTime = millis() - structTimings.u_lngLaufzeit;
@@ -171,7 +168,7 @@ void KlingelRoutine()
 	}
 	else if (bGetState( STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC ))
 	{
-		if (( CONST_ENTPRELLDAUER < structTimings.u_lngEntpreller ) && ( digitalRead(IN_KLINGEL)) )
+		if (( CONST_ENTPRELLDAUER < structTimings.u_lngEntpreller ) && ( !digitalRead(IN_KLINGEL)) )
 		{
 			SetState( STATE_KLINGEL_ROUTINE, ADRESS_STATES_GENERIC, true );
 		}
@@ -244,12 +241,9 @@ uint8_t intAnalogValue(float fltSpeed)
 ///
 void setup()
 {
-	// WICHTIG! Sonst startet das Board permanent neu!
-	digitalWrite( OUT_RESET, HIGH );
 	pinMode( OUT_BLINKLED,	OUTPUT );
 	pinMode( OUT_TESTLED,	OUTPUT );
 	pinMode( OUT_TRELAIS,	OUTPUT );
-	pinMode( OUT_RESET,		OUTPUT );
 	pinMode( IN_TIMM,		INPUT_PULLUP );
 	pinMode( IN_BOBBY,		INPUT_PULLUP );
 	pinMode( IN_TILL,		INPUT_PULLUP );
@@ -257,6 +251,7 @@ void setup()
 	pinMode( IN_FRANZ,		INPUT_PULLUP );
 	pinMode( IN_KLINGEL,	INPUT_PULLUP );
 	Serial.begin(115200);				/* für serielle Ausgabe zum debuggen, kann deaktiviert bleiben */
+	delay(200);
 	StartRoutine();
 }
 
@@ -268,12 +263,14 @@ void loop()
 	///////////////////////////////////////////////////////////////////////////////
 	///  #1 Button-Check, und Tueroeffnungsroutine. Hoechste Prioritaet.        ///
 	///////////////////////////////////////////////////////////////////////////////
-	Serial.print("\nTimer Laufzeit: ");
-	Serial.print(structTimings.u_lngLaufzeit);
-	Serial.print("\nTimer Entpreller: ");
-	Serial.print(structTimings.u_lngEntpreller);
-	Serial.print("\nTimer Leuchtdauer: ");
-	Serial.print(structTimings.u_lngLeuchtdauer);
+	if ((structTimings.u_lngEntpreller > 0) || (structTimings.u_lngLeuchtdauer > 0) )
+	{
+		Serial.print("\nTimer Entpreller: ");
+		Serial.print(structTimings.u_lngEntpreller);
+		Serial.print("\nTimer Leuchtdauer: ");
+		Serial.print(structTimings.u_lngLeuchtdauer);
+	}
+
 	if ( bButtonPushed() )
 	{
 		if ( !bGetState(STATE_KLINGEL_PUSHED, ADRESS_STATES_GENERIC) )
