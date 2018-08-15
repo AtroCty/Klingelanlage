@@ -5,10 +5,11 @@
 /// @author     Timm Schütte
 /// @author     Till Westphalen
 /// @version    2.0.4
-/// @date       27. Juni 2018 - Entfernen des Interrupts
-/// @date       24. Juni 2018 - Einführung Namenskonvention
-/// @date       21. Juni 2018 - Auslagerung in Header
-/// @date       20. Juni 2018 - Update 2.0
+/// @date       15. August 2018 - Endlikch mal anbringen...
+/// @date       27. Juni 2018 	- Entfernen des Interrupts
+/// @date       24. Juni 2018 	- Einführung Namenskonvention
+/// @date       21. Juni 2018 	- Auslagerung in Header
+/// @date       20. Juni 2018 	- Update 2.0
 /// @date       14. Dezember 2017 - Entwurf
 /// @copyright  GNU Public License.
 
