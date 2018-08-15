@@ -73,7 +73,6 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
-<code>#include &lt;HardwareSerial.h&gt;</code><br />
 </div>
 <p><a href="_klingelanlage_8h_source.html">gehe zum Quellcode dieser Datei</a></p>
 <table class="memberdecls">
@@ -85,12 +84,12 @@ Datenstrukturen</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Makrodefinitionen</h2></td></tr>
-<tr class="memitem:a91098cc39e74bbddc7c61d2ad1de49f5"><td class="memItemLeft" align="right" valign="top"><a id="a91098cc39e74bbddc7c61d2ad1de49f5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>STATES_GENERIC</b>&#160;&#160;&#160;&amp;<a class="el" href="_klingelanlage_8h.html#ab585c57aea3a2750a085232d196c9274">bytLastState</a></td></tr>
-<tr class="separator:a91098cc39e74bbddc7c61d2ad1de49f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a748432504df2bf8daac97eae16898a79"><td class="memItemLeft" align="right" valign="top"><a id="a748432504df2bf8daac97eae16898a79"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>STATES_TIMER</b>&#160;&#160;&#160;&amp;structTimings.bytState</td></tr>
-<tr class="separator:a748432504df2bf8daac97eae16898a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b6263f5966c95483f52278fecdbc02"><td class="memItemLeft" align="right" valign="top"><a id="ae2b6263f5966c95483f52278fecdbc02"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ADRESS_STATES_GENERIC</b>&#160;&#160;&#160;&amp;<a class="el" href="_klingelanlage_8h.html#ab585c57aea3a2750a085232d196c9274">bytLastState</a></td></tr>
+<tr class="separator:ae2b6263f5966c95483f52278fecdbc02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adda9c7056bae2cbfa53633247f3e667d"><td class="memItemLeft" align="right" valign="top"><a id="adda9c7056bae2cbfa53633247f3e667d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ADRESS_STATES_TIMER</b>&#160;&#160;&#160;&amp;structTimings.bytState</td></tr>
+<tr class="separator:adda9c7056bae2cbfa53633247f3e667d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga558ffa5b771cd916494ecb219bb8ec0b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_s.html#ga558ffa5b771cd916494ecb219bb8ec0b">OUT_BLINKLED</a>&#160;&#160;&#160;9</td></tr>
 <tr class="separator:ga558ffa5b771cd916494ecb219bb8ec0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga77188d55a8bfe34d6696f451b71c57a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_s.html#ga77188d55a8bfe34d6696f451b71c57a8">OUT_TESTLED</a>&#160;&#160;&#160;10</td></tr>
@@ -111,44 +110,49 @@ Makrodefinitionen</h2></td></tr>
 <tr class="separator:gab7758fe44ee3ad59db8caa31d26cac1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac5b5a2e6b07a8a987b59fe44349f564b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___p_i_n_s.html#gac5b5a2e6b07a8a987b59fe44349f564b">IN_KLINGEL</a>&#160;&#160;&#160;3</td></tr>
 <tr class="separator:gac5b5a2e6b07a8a987b59fe44349f564b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab2e628cb48630a41ca40adbf03dc72e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#gab2e628cb48630a41ca40adbf03dc72e0">LEUCHTDAUER</a>&#160;&#160;&#160;10000.0</td></tr>
-<tr class="separator:gab2e628cb48630a41ca40adbf03dc72e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga36bc9f8984b60ad3527433ca282399c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#ga36bc9f8984b60ad3527433ca282399c2">ENTPRELLDAUER</a>&#160;&#160;&#160;200.0</td></tr>
-<tr class="separator:ga36bc9f8984b60ad3527433ca282399c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaac3553b3932cbfeeac4526ce7ca0336b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#gaac3553b3932cbfeeac4526ce7ca0336b">SPEED</a>&#160;&#160;&#160;1.0</td></tr>
-<tr class="separator:gaac3553b3932cbfeeac4526ce7ca0336b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga374d640f02715e7a5be988ab66282049"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#ga374d640f02715e7a5be988ab66282049">SLOWRATE</a>&#160;&#160;&#160;0.1</td></tr>
-<tr class="separator:ga374d640f02715e7a5be988ab66282049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a0916e3dbce976f7ff814ddd25a859c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#ga8a0916e3dbce976f7ff814ddd25a859c">CONST_LEUCHTDAUER</a>&#160;&#160;&#160;10000.0</td></tr>
+<tr class="separator:ga8a0916e3dbce976f7ff814ddd25a859c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0ebdbb652a84b2fda772d1e8f67f3408"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#ga0ebdbb652a84b2fda772d1e8f67f3408">CONST_ENTPRELLDAUER</a>&#160;&#160;&#160;200.0</td></tr>
+<tr class="separator:ga0ebdbb652a84b2fda772d1e8f67f3408"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1bbf344ee0762be920113b6e67ab3131"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#ga1bbf344ee0762be920113b6e67ab3131">CONST_LEUCHTFREQUENZ</a>&#160;&#160;&#160;1000.0</td></tr>
+<tr class="separator:ga1bbf344ee0762be920113b6e67ab3131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab9a1ce6c47f771b66554a83b06fc7821"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_p_e_e_d.html#gab9a1ce6c47f771b66554a83b06fc7821">CONST_LEUCHT_MULT</a>&#160;&#160;&#160;0.3</td></tr>
+<tr class="separator:gab9a1ce6c47f771b66554a83b06fc7821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad8923f1ac0476fa8c42480c930834b57"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CONST_MIN_ANALOG</b>&#160;&#160;&#160;40</td></tr>
+<tr class="separator:gad8923f1ac0476fa8c42480c930834b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7330cec6aa196bd30b13eeb57ede7636"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CONST_MAX_ANALOG</b>&#160;&#160;&#160;255</td></tr>
+<tr class="separator:ga7330cec6aa196bd30b13eeb57ede7636"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad441bf96ad628a316afb795a6c3b2c11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#gad441bf96ad628a316afb795a6c3b2c11">STATE_KLINGEL_PUSHED</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:gad441bf96ad628a316afb795a6c3b2c11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2dd7ed06cc5f63837d653f47f7f49f42"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#ga2dd7ed06cc5f63837d653f47f7f49f42">STATE_KLINGEL_ROUTINE</a>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:ga2dd7ed06cc5f63837d653f47f7f49f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8e493693438e487bb9d8bc5b5d4a0bdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#ga8e493693438e487bb9d8bc5b5d4a0bdb">STATE_DOOR_OPEN</a>&#160;&#160;&#160;4</td></tr>
 <tr class="separator:ga8e493693438e487bb9d8bc5b5d4a0bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2fe4fd5834c0a126a6789d57e6dc79e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#ga2fe4fd5834c0a126a6789d57e6dc79e6">STATE_DENSITY_TOGGLE</a>&#160;&#160;&#160;8</td></tr>
-<tr class="separator:ga2fe4fd5834c0a126a6789d57e6dc79e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7383fdc79433fedfaec51b60d017d32e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#ga7383fdc79433fedfaec51b60d017d32e">STATE_LIGHT</a>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:ga7383fdc79433fedfaec51b60d017d32e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga31e9b213d26e8a0d094f6fea427ab82e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#ga31e9b213d26e8a0d094f6fea427ab82e">STATE_DEBUG</a>&#160;&#160;&#160;16</td></tr>
 <tr class="separator:ga31e9b213d26e8a0d094f6fea427ab82e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga86bd9694b43542460ba7399137fa32fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#ga86bd9694b43542460ba7399137fa32fc">TIMER_LEUCHTDAUER</a>&#160;&#160;&#160;1</td></tr>
-<tr class="memdesc:ga86bd9694b43542460ba7399137fa32fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer States.  <a href="group___s_t_a_t_e_s.html#ga86bd9694b43542460ba7399137fa32fc">Mehr ...</a><br /></td></tr>
-<tr class="separator:ga86bd9694b43542460ba7399137fa32fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga26ee9285e7763341af7d2b2c9501722d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#ga26ee9285e7763341af7d2b2c9501722d">TIMER_ENTPRELLER</a>&#160;&#160;&#160;2</td></tr>
-<tr class="separator:ga26ee9285e7763341af7d2b2c9501722d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaedf5fc74eb8414ef55d76fac054123ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#gaedf5fc74eb8414ef55d76fac054123ba">STATE_TIMER_LEUCHTDAUER</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:gaedf5fc74eb8414ef55d76fac054123ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer States.  <a href="group___s_t_a_t_e_s.html#gaedf5fc74eb8414ef55d76fac054123ba">Mehr ...</a><br /></td></tr>
+<tr class="separator:gaedf5fc74eb8414ef55d76fac054123ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadc2f491bf74ccb26f5934e15287d13c0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___s_t_a_t_e_s.html#gadc2f491bf74ccb26f5934e15287d13c0">STATE_TIMER_ENTPRELLER</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:gadc2f491bf74ccb26f5934e15287d13c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funktionen</h2></td></tr>
 <tr class="memitem:a943cc12e9c135d390d4c6853fe3296f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#a943cc12e9c135d390d4c6853fe3296f9">StartRoutine</a> ()</td></tr>
-<tr class="memdesc:a943cc12e9c135d390d4c6853fe3296f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Startet eine Routine.  <a href="#a943cc12e9c135d390d4c6853fe3296f9">Mehr ...</a><br /></td></tr>
+<tr class="memdesc:a943cc12e9c135d390d4c6853fe3296f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Anfangsroutine bei Start des Programmes Startet den Interrrupt und deaktiviert das Relais.  <a href="#a943cc12e9c135d390d4c6853fe3296f9">Mehr ...</a><br /></td></tr>
 <tr class="separator:a943cc12e9c135d390d4c6853fe3296f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0ccd23890c8fe636a2274ba18b1799f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#ad0ccd23890c8fe636a2274ba18b1799f">bGetState</a> (int intPos, volatile uint8_t *bytStates)</td></tr>
-<tr class="memdesc:ad0ccd23890c8fe636a2274ba18b1799f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Untersucht den aktuellen State auf Gültigkeit.  <a href="#ad0ccd23890c8fe636a2274ba18b1799f">Mehr ...</a><br /></td></tr>
+<tr class="memdesc:ad0ccd23890c8fe636a2274ba18b1799f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt.  <a href="#ad0ccd23890c8fe636a2274ba18b1799f">Mehr ...</a><br /></td></tr>
 <tr class="separator:ad0ccd23890c8fe636a2274ba18b1799f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af41953bf84b29e0c1085344c6ef52c13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#af41953bf84b29e0c1085344c6ef52c13">SetState</a> (int intPos, volatile uint8_t *bytStates, bool bState)</td></tr>
 <tr class="memdesc:af41953bf84b29e0c1085344c6ef52c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setzt den State nach Belieben.  <a href="#af41953bf84b29e0c1085344c6ef52c13">Mehr ...</a><br /></td></tr>
 <tr class="separator:af41953bf84b29e0c1085344c6ef52c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="memItemLeft" align="right" valign="top"><a id="ac3d72a0eacdb4e8d25ec34a62816064b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#ac3d72a0eacdb4e8d25ec34a62816064b">InteruptKlingeln</a> ()</td></tr>
-<tr class="memdesc:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt. <br /></td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>InteruptKlingeln</b> ()</td></tr>
 <tr class="separator:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65f7f52038d1122660072f38c5f3b1f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#a65f7f52038d1122660072f38c5f3b1f2">TimerControl</a> (int intTimer, bool bStartStop)</td></tr>
 <tr class="memdesc:a65f7f52038d1122660072f38c5f3b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Funktion zum Regeln der verschiedenen Timer.  <a href="#a65f7f52038d1122660072f38c5f3b1f2">Mehr ...</a><br /></td></tr>
@@ -160,16 +164,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kli
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#a8b31ec17cd535f7df26f1f6bc8bbf83a">UpdateTimings</a> ()</td></tr>
 <tr class="memdesc:a8b31ec17cd535f7df26f1f6bc8bbf83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aktualisiert die vergangene Zeit, und resettet bei Überlauf. <br /></td></tr>
 <tr class="separator:a8b31ec17cd535f7df26f1f6bc8bbf83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a377479ba703c52251f554ace25a4936a"><td class="memItemLeft" align="right" valign="top"><a id="a377479ba703c52251f554ace25a4936a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#a377479ba703c52251f554ace25a4936a">CheckKlingel</a> ()</td></tr>
-<tr class="memdesc:a377479ba703c52251f554ace25a4936a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Überprüft, ob Klingel betätigt wurde, und Entprellzeiten eingehalten wurde. <br /></td></tr>
-<tr class="separator:a377479ba703c52251f554ace25a4936a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee66707bebaef05a61218fd99e04d7a"><td class="memItemLeft" align="right" valign="top"><a id="a5ee66707bebaef05a61218fd99e04d7a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#a5ee66707bebaef05a61218fd99e04d7a">KlingelRoutine</a> ()</td></tr>
+<tr class="memdesc:a5ee66707bebaef05a61218fd99e04d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Überprüft, ob Klingel betätigt wurde, und Entprellzeiten eingehalten wurde. <br /></td></tr>
+<tr class="separator:a5ee66707bebaef05a61218fd99e04d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacd128c47770ea13529b2243c0ac0223"><td class="memItemLeft" align="right" valign="top"><a id="aacd128c47770ea13529b2243c0ac0223"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#aacd128c47770ea13529b2243c0ac0223">LeuchtRoutine</a> ()</td></tr>
+<tr class="memdesc:aacd128c47770ea13529b2243c0ac0223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leucht-Routine. <br /></td></tr>
+<tr class="separator:aacd128c47770ea13529b2243c0ac0223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9925863d191d93de47c193de22af626d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#a9925863d191d93de47c193de22af626d">intAnalogValue</a> (float fltSpeed)</td></tr>
+<tr class="memdesc:a9925863d191d93de47c193de22af626d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Konvertiert in die korrekte analoge Variante.  <a href="#a9925863d191d93de47c193de22af626d">Mehr ...</a><br /></td></tr>
+<tr class="separator:a9925863d191d93de47c193de22af626d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63faaa582cd931eb118278e217eb530b"><td class="memItemLeft" align="right" valign="top"><a id="a63faaa582cd931eb118278e217eb530b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#a63faaa582cd931eb118278e217eb530b">ResetRoutine</a> ()</td></tr>
+<tr class="memdesc:a63faaa582cd931eb118278e217eb530b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset der Routine &amp; Timer. <br /></td></tr>
+<tr class="separator:a63faaa582cd931eb118278e217eb530b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variablen</h2></td></tr>
-<tr class="memitem:ab585c57aea3a2750a085232d196c9274"><td class="memItemLeft" align="right" valign="top"><a id="ab585c57aea3a2750a085232d196c9274"></a>
-volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#ab585c57aea3a2750a085232d196c9274">bytLastState</a></td></tr>
-<tr class="memdesc:ab585c57aea3a2750a085232d196c9274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merker der verschiedenen States. <br /></td></tr>
+<tr class="memitem:ab585c57aea3a2750a085232d196c9274"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#ab585c57aea3a2750a085232d196c9274">bytLastState</a></td></tr>
+<tr class="memdesc:ab585c57aea3a2750a085232d196c9274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merker der verschiedenen States.  <a href="#ab585c57aea3a2750a085232d196c9274">Mehr ...</a><br /></td></tr>
 <tr class="separator:ab585c57aea3a2750a085232d196c9274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7e3d6f970debd821fc6a8053c48256b"><td class="memItemLeft" align="right" valign="top"><a id="aa7e3d6f970debd821fc6a8053c48256b"></a>
 volatile <a class="el" href="structstruct_timer.html">structTimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8h.html#aa7e3d6f970debd821fc6a8053c48256b">structTimings</a></td></tr>
@@ -223,15 +237,37 @@ volatile <a class="el" href="structstruct_timer.html">structTimer</a>&#160;</td>
       </table>
 </div><div class="memdoc">
 
-<p>Untersucht den aktuellen State auf Gültigkeit. </p>
+<p>Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt. </p>
+<p>Untersucht den aktuellen State auf Gültigkeit.</p>
 <dl class="params"><dt>Parameter</dt><dd>
   <table class="params">
     <tr><td class="paramname">intPos</td><td>Position des States. Siehe dazu Konstanten. </td></tr>
-    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States.</td></tr>
+    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States. (Siehe ADRESS_STATES_)</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Rückgabe</dt><dd><code>true</code> falls aktiv, ansonsten <code>false</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a9925863d191d93de47c193de22af626d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9925863d191d93de47c193de22af626d">&#9670;&nbsp;</a></span>intAnalogValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t intAnalogValue </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fltSpeed</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Konvertiert in die korrekte analoge Variante. </p>
+<dl class="section return"><dt>Rückgabe</dt><dd>Wert zwischen 0-255 </dd></dl>
 
 </div>
 </div>
@@ -271,7 +307,7 @@ volatile <a class="el" href="structstruct_timer.html">structTimer</a>&#160;</td>
 <dl class="params"><dt>Parameter</dt><dd>
   <table class="params">
     <tr><td class="paramname">intPos</td><td>Position des States. Siehe dazu Konstanten. </td></tr>
-    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States. </td></tr>
+    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States. (Siehe ADRESS_STATES_) </td></tr>
     <tr><td class="paramname">bState</td><td>Gewünschter State. </td></tr>
   </table>
   </dd>
@@ -294,8 +330,8 @@ volatile <a class="el" href="structstruct_timer.html">structTimer</a>&#160;</td>
       </table>
 </div><div class="memdoc">
 
-<p>Startet eine Routine. </p>
-<p>Startet eine Routine. </p>
+<p>Anfangsroutine bei Start des Programmes Startet den Interrrupt und deaktiviert das Relais. </p>
+<p>============================================================================= </p><h2>Funktionsprototypen </h2>
 
 </div>
 </div>
@@ -333,6 +369,24 @@ volatile <a class="el" href="structstruct_timer.html">structTimer</a>&#160;</td>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variablen-Dokumentation</h2>
+<a id="ab585c57aea3a2750a085232d196c9274"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab585c57aea3a2750a085232d196c9274">&#9670;&nbsp;</a></span>bytLastState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t bytLastState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merker der verschiedenen States. </p>
+<p>&lt; Nur für Clang-Completion, wird eh immer eingebunden </p>
 
 </div>
 </div>

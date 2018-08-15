@@ -6,6 +6,7 @@
 /// @author     Timm Schütte
 /// @author     Till Westphalen
 /// @version    2.0.3
+/// @date       15. August 2018 - Finalizing
 /// @date       24. Juni 2018 - Einführung Namenskonvention
 /// @date       21. Juni 2018 - Auslagerung in Header
 /// @date       20. Juni 2018 - Update 2.0

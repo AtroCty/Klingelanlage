@@ -75,15 +75,12 @@ $(function() {
 <a href="#details">Mehr ...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="_klingelanlage_8h_source.html">Klingelanlage.h</a>&quot;</code><br />
 <code>#include &lt;Arduino.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funktionen</h2></td></tr>
-<tr class="memitem:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="memItemLeft" align="right" valign="top"><a id="ac3d72a0eacdb4e8d25ec34a62816064b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ac3d72a0eacdb4e8d25ec34a62816064b">InteruptKlingeln</a> ()</td></tr>
-<tr class="memdesc:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt. <br /></td></tr>
-<tr class="separator:ac3d72a0eacdb4e8d25ec34a62816064b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0ccd23890c8fe636a2274ba18b1799f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ad0ccd23890c8fe636a2274ba18b1799f">bGetState</a> (int intPos, volatile uint8_t *bytStates)</td></tr>
-<tr class="memdesc:ad0ccd23890c8fe636a2274ba18b1799f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Untersucht den aktuellen State auf Gültigkeit.  <a href="#ad0ccd23890c8fe636a2274ba18b1799f">Mehr ...</a><br /></td></tr>
+<tr class="memdesc:ad0ccd23890c8fe636a2274ba18b1799f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt.  <a href="#ad0ccd23890c8fe636a2274ba18b1799f">Mehr ...</a><br /></td></tr>
 <tr class="separator:ad0ccd23890c8fe636a2274ba18b1799f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af41953bf84b29e0c1085344c6ef52c13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#af41953bf84b29e0c1085344c6ef52c13">SetState</a> (int intPos, volatile uint8_t *bytStates, bool bState)</td></tr>
 <tr class="memdesc:af41953bf84b29e0c1085344c6ef52c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setzt den State nach Belieben.  <a href="#af41953bf84b29e0c1085344c6ef52c13">Mehr ...</a><br /></td></tr>
@@ -101,36 +98,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kli
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a8b31ec17cd535f7df26f1f6bc8bbf83a">UpdateTimings</a> ()</td></tr>
 <tr class="memdesc:a8b31ec17cd535f7df26f1f6bc8bbf83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aktualisiert die vergangene Zeit, und resettet bei Überlauf. <br /></td></tr>
 <tr class="separator:a8b31ec17cd535f7df26f1f6bc8bbf83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a377479ba703c52251f554ace25a4936a"><td class="memItemLeft" align="right" valign="top"><a id="a377479ba703c52251f554ace25a4936a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a377479ba703c52251f554ace25a4936a">CheckKlingel</a> ()</td></tr>
-<tr class="memdesc:a377479ba703c52251f554ace25a4936a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Überprüft, ob Klingel betätigt wurde, und Entprellzeiten eingehalten wurde. <br /></td></tr>
-<tr class="separator:a377479ba703c52251f554ace25a4936a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee66707bebaef05a61218fd99e04d7a"><td class="memItemLeft" align="right" valign="top"><a id="a5ee66707bebaef05a61218fd99e04d7a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a5ee66707bebaef05a61218fd99e04d7a">KlingelRoutine</a> ()</td></tr>
+<tr class="memdesc:a5ee66707bebaef05a61218fd99e04d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Überprüft, ob Klingel betätigt wurde, und Entprellzeiten eingehalten wurde. <br /></td></tr>
+<tr class="separator:a5ee66707bebaef05a61218fd99e04d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63faaa582cd931eb118278e217eb530b"><td class="memItemLeft" align="right" valign="top"><a id="a63faaa582cd931eb118278e217eb530b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a63faaa582cd931eb118278e217eb530b">ResetRoutine</a> ()</td></tr>
+<tr class="memdesc:a63faaa582cd931eb118278e217eb530b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset der Routine &amp; Timer. <br /></td></tr>
+<tr class="separator:a63faaa582cd931eb118278e217eb530b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacd128c47770ea13529b2243c0ac0223"><td class="memItemLeft" align="right" valign="top"><a id="aacd128c47770ea13529b2243c0ac0223"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#aacd128c47770ea13529b2243c0ac0223">LeuchtRoutine</a> ()</td></tr>
+<tr class="memdesc:aacd128c47770ea13529b2243c0ac0223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leucht-Routine. <br /></td></tr>
+<tr class="separator:aacd128c47770ea13529b2243c0ac0223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9925863d191d93de47c193de22af626d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a9925863d191d93de47c193de22af626d">intAnalogValue</a> (float fltSpeed)</td></tr>
+<tr class="memdesc:a9925863d191d93de47c193de22af626d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Konvertiert in die korrekte analoge Variante.  <a href="#a9925863d191d93de47c193de22af626d">Mehr ...</a><br /></td></tr>
+<tr class="separator:a9925863d191d93de47c193de22af626d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top"><a id="a4fc01d736fe50cf5b977f755b675f11d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arduino Setup-Routine. Setzen der PINS &amp; Serieller Debugger. <br /></td></tr>
 <tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top"><a id="afe461d27b9c48d5921c00d521181f12f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
-<tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main-Loop. <br /></td></tr>
+<tr class="memitem:afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
+<tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main-Loop.  <a href="#afe461d27b9c48d5921c00d521181f12f">Mehr ...</a><br /></td></tr>
 <tr class="separator:afe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variablen</h2></td></tr>
-<tr class="memitem:ab585c57aea3a2750a085232d196c9274"><td class="memItemLeft" align="right" valign="top"><a id="ab585c57aea3a2750a085232d196c9274"></a>
-volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ab585c57aea3a2750a085232d196c9274">bytLastState</a> = 0</td></tr>
-<tr class="memdesc:ab585c57aea3a2750a085232d196c9274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merker der verschiedenen States. <br /></td></tr>
+<tr class="memitem:ab585c57aea3a2750a085232d196c9274"><td class="memItemLeft" align="right" valign="top">volatile uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#ab585c57aea3a2750a085232d196c9274">bytLastState</a> = 0</td></tr>
+<tr class="memdesc:ab585c57aea3a2750a085232d196c9274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merker der verschiedenen States.  <a href="#ab585c57aea3a2750a085232d196c9274">Mehr ...</a><br /></td></tr>
 <tr class="separator:ab585c57aea3a2750a085232d196c9274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7e3d6f970debd821fc6a8053c48256b"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structstruct_timer.html">structTimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_klingelanlage_8ino.html#aa7e3d6f970debd821fc6a8053c48256b">structTimings</a></td></tr>
 <tr class="memdesc:aa7e3d6f970debd821fc6a8053c48256b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer des Programmes.  <a href="#aa7e3d6f970debd821fc6a8053c48256b">Mehr ...</a><br /></td></tr>
 <tr class="separator:aa7e3d6f970debd821fc6a8053c48256b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a684d76aec064657427c7b81ab35829e6"><td class="memItemLeft" align="right" valign="top"><a id="a684d76aec064657427c7b81ab35829e6"></a>
+void(*&#160;</td><td class="memItemRight" valign="bottom"><b>ResetFunc</b> )(void)=0</td></tr>
+<tr class="separator:a684d76aec064657427c7b81ab35829e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Ausführliche Beschreibung</h2>
 <div class="textblock"><p>Steuerung der Klingelanlage mit mehreren Eingängen. Zusätzliche Ausgabe an verschiedenen Blinkanlagen. </p>
 <dl class="section author"><dt>Autor</dt><dd>Timm Schütte </dd>
 <dd>
 Till Westphalen </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>2.0.3 </dd></dl>
-<dl class="section date"><dt>Datum</dt><dd>24. Juni 2018 - Einführung Namenskonvention </dd>
+<dl class="section version"><dt>Version</dt><dd>2.0.4 </dd></dl>
+<dl class="section date"><dt>Datum</dt><dd>15. August 2018 - Finalizing </dd>
+<dd>
+27. Juni 2018 - Entfernen des Interrupts </dd>
+<dd>
+24. Juni 2018 - Einführung Namenskonvention </dd>
 <dd>
 21. Juni 2018 - Auslagerung in Header </dd>
 <dd>
@@ -185,15 +198,57 @@ Till Westphalen </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Untersucht den aktuellen State auf Gültigkeit. </p>
+<p>Wenn Klingel betätigt wurde, setze die States, und unterbreche den Interrupt. </p>
+<p>Untersucht den aktuellen State auf Gültigkeit.</p>
 <dl class="params"><dt>Parameter</dt><dd>
   <table class="params">
     <tr><td class="paramname">intPos</td><td>Position des States. Siehe dazu Konstanten. </td></tr>
-    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States.</td></tr>
+    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States. (Siehe ADRESS_STATES_)</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Rückgabe</dt><dd><code>true</code> falls aktiv, ansonsten <code>false</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a9925863d191d93de47c193de22af626d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9925863d191d93de47c193de22af626d">&#9670;&nbsp;</a></span>intAnalogValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t intAnalogValue </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fltSpeed</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Konvertiert in die korrekte analoge Variante. </p>
+<dl class="section return"><dt>Rückgabe</dt><dd>Wert zwischen 0-255 </dd></dl>
+
+</div>
+</div>
+<a id="afe461d27b9c48d5921c00d521181f12f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe461d27b9c48d5921c00d521181f12f">&#9670;&nbsp;</a></span>loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Main-Loop. </p>
+<p>#1 Button-Check, und Tueroeffnungsroutine. Hoechste Prioritaet. ///</p>
 
 </div>
 </div>
@@ -233,7 +288,7 @@ Till Westphalen </dd></dl>
 <dl class="params"><dt>Parameter</dt><dd>
   <table class="params">
     <tr><td class="paramname">intPos</td><td>Position des States. Siehe dazu Konstanten. </td></tr>
-    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States. </td></tr>
+    <tr><td class="paramname">bytStates</td><td>Adresse der Merker-States. (Siehe ADRESS_STATES_) </td></tr>
     <tr><td class="paramname">bState</td><td>Gewünschter State. </td></tr>
   </table>
   </dd>
@@ -257,7 +312,7 @@ Till Westphalen </dd></dl>
 </div><div class="memdoc">
 
 <p>Anfangsroutine bei Start des Programmes Startet den Interrrupt und deaktiviert das Relais. </p>
-<p>Startet eine Routine. </p>
+<p>============================================================================= </p><h2>Funktionsprototypen </h2>
 
 </div>
 </div>
@@ -299,6 +354,23 @@ Till Westphalen </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Variablen-Dokumentation</h2>
+<a id="ab585c57aea3a2750a085232d196c9274"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab585c57aea3a2750a085232d196c9274">&#9670;&nbsp;</a></span>bytLastState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint8_t bytLastState = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merker der verschiedenen States. </p>
+<p>&lt; Nur für Clang-Completion, wird eh immer eingebunden </p>
+
+</div>
+</div>
 <a id="aa7e3d6f970debd821fc6a8053c48256b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa7e3d6f970debd821fc6a8053c48256b">&#9670;&nbsp;</a></span>structTimings</h2>
 

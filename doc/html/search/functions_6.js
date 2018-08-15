@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['updatetimings',['UpdateTimings',['../_klingelanlage_8ino.html#a8b31ec17cd535f7df26f1f6bc8bbf83a',1,'UpdateTimings():&#160;Klingelanlage.ino'],['../_klingelanlage_8h.html#a8b31ec17cd535f7df26f1f6bc8bbf83a',1,'UpdateTimings():&#160;Klingelanlage.ino']]]
+  ['timercontrol',['TimerControl',['../_klingelanlage_8ino.html#a65f7f52038d1122660072f38c5f3b1f2',1,'TimerControl(int intTimer, bool bStartStop):&#160;Klingelanlage.ino'],['../_klingelanlage_8h.html#a65f7f52038d1122660072f38c5f3b1f2',1,'TimerControl(int intTimer, bool bStartStop):&#160;Klingelanlage.ino']]]
 ];

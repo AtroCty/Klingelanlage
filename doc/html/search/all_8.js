@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['projekt_20klingelanlage',['Projekt Klingelanlage',['../index.html',1,'']]],
-  ['pin_2dbelegung',['Pin-Belegung',['../group___p_i_n_s.html',1,'']]]
+  ['resetroutine',['ResetRoutine',['../_klingelanlage_8ino.html#a63faaa582cd931eb118278e217eb530b',1,'ResetRoutine():&#160;Klingelanlage.ino'],['../_klingelanlage_8h.html#a63faaa582cd931eb118278e217eb530b',1,'ResetRoutine():&#160;Klingelanlage.ino']]]
 ];
