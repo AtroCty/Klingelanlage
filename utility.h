@@ -1,5 +1,7 @@
 #pragma once
 
+void(* ResetFunc) (void) = 0;
+
 //------------------------------------------------------------------------------
 /// @brief      Untersucht den aktuellen State auf Gültigkeit.
 ///

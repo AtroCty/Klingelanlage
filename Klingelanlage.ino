@@ -17,8 +17,6 @@
 #include <Arduino.h>					/*!< Nur für Clang-Completion, wird eh immer eingebunden */
 #include "utility.h"
 
-
-void(* ResetFunc) (void) = 0;
 //------------------------------------------------------------------------------
 /// @brief      Merker der verschiedenen States.
 volatile uint8_t bytLastState = 0;
@@ -42,33 +40,6 @@ void StartRoutine()
 	ResetRoutine();
 }
 
-//------------------------------------------------------------------------------
-/// @brief      Funktion zum Regeln der verschiedenen Timer.
-///
-/// @param      intTimer    Timer-ID. (siehe Header)
-/// @param      bStartStop  @c true für starten, @c false für Stop/Reset.
-///
-void TimerControl(int intTimer, bool bStartStop)
-{
-	if (bStartStop)
-	{
-		if (bGetState(intTimer, ADRESS_STATES_TIMER))
-		{
-			SetState(intTimer, ADRESS_STATES_TIMER, true);
-		}
-	}
-	else
-	{
-		if (!(bGetState(intTimer, ADRESS_STATES_TIMER)))
-		{
-			SetState(intTimer, ADRESS_STATES_TIMER, false);
-			long *p;
-			p = (long*) &structTimings;
-			*(p + ((long) intTimer)) = 0;
-		}
-	}
-	return;
-}
 
 //------------------------------------------------------------------------------
 /// @brief      Überprüft, ob Klingel betätigt wurde, und Entprellzeiten
@@ -129,6 +100,7 @@ void setup()
 ///
 void loop()
 {
+	digitalWrite(OUT_TESTLED, digitalRead(IN_TIMM));
 	if ((structTimings.u_lngEntpreller > 0) || (structTimings.u_lngLeuchtdauer > 0) )
 	{
 		Serial.print("\nTimer Entpreller: ");
